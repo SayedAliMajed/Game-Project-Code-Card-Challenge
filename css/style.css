@@ -2,6 +2,13 @@
 * {
   box-sizing: border-box;
 }
+
+#logo {
+  width: 200px;
+  height: 200px;
+}
+
+
 body {
   background: linear-gradient(135deg, #f0f0f5, #dbeafe);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
