@@ -1,4 +1,4 @@
-# Game-Project-Code-Card-Challenge
+# Game Project: Code Card Challenge
 
 <img width="150" height="150" alt="logo" src="https://github.com/user-attachments/assets/fcd6f3cd-6c79-4fe0-a4b2-0bb5bac44e29" />
 
