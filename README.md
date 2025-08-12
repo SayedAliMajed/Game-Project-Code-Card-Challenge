@@ -1,6 +1,6 @@
 # Game Project: Code Card Challenge
 
-<img width="150" height="150" alt="logo" src="https://github.com/user-attachments/assets/fcd6f3cd-6c79-4fe0-a4b2-0bb5bac44e29" />
+<img width="150" height="150" alt="FinalLogo" src="https://github.com/user-attachments/assets/3db01952-59a1-4ad1-8cb5-d699be954f80" />
 
 
 ## 🎯 Game Description
