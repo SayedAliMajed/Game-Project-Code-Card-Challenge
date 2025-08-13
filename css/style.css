@@ -6,6 +6,14 @@
 #logo {
   width: 300px;
   height: 300px;
+  display: block;
+  margin-top: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: aliceblue;
+  align-content: center;
+  border-radius: 20px;
+
 }
 
 
@@ -18,8 +26,7 @@ body {
 }
 
 #introScreen {
-  width:875px;
-  height: 500px;
+ 
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -33,6 +40,7 @@ body {
   background-image: -ms-linear-gradient(top, #db0000, #ad0000);
   background-image: -o-linear-gradient(top, #db0000, #ad0000);
   background-image: linear-gradient(to bottom, #db0000, #ad0000);
+  margin-bottom: 200px;
 }
 #playNow:hover {
 	background: #ff0000;
@@ -66,6 +74,20 @@ body {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  height: 200px;
-  width: 300px;
+  height: 265px;
+}
+
+.playingCard {
+	width: 140px;
+	margin: 30px 15px;
+}
+
+.cardBack {
+	width: 140px;
+	margin: 30px 15px;
+	position: relative;
+}
+
+.cardBackWrapper {
+	display: none;
 }

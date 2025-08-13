@@ -1,5 +1,6 @@
 /*-------------- Constants -------------*/
-
+const playNow = document.getElementById('playNow');
+console.log(playNow);
 
 /*---------- Variables (state) ---------*/
 
