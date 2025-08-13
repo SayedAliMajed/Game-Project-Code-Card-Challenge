@@ -1,6 +1,6 @@
 /*-------------- Constants -------------*/
-const playNow = document.getElementById('playNow');
-console.log(playNow);
+const playNowEl = document.getElementById('playNow');
+console.log(playNowEl);
 
 /*---------- Variables (state) ---------*/
 
@@ -9,7 +9,9 @@ console.log(playNow);
 
 
 /*-------------- Functions -------------*/
+playNowEl.addEventListener('click', () => {
+    document.getElementById('introScreen').style.display = 'none';
+    document.getElementById('monteContainer') = 'block';
+});
 
-
-/*----------- Event Listeners ----------*/
 
