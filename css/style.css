@@ -4,20 +4,17 @@
 }
 
 #logo {
-  width: 200px;
-  height: 200px;
+  width: 300px;
+  height: 300px;
 }
 
 
 body {
-  background: linear-gradient(135deg, #f0f0f5, #dbeafe);
-  background-color:ghostwhite;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
-  color: #11076ab8;
+	justify-content: center;
+	align-items: center;
+	font-family: 'Libre Baskerville', serif;
+	background-color: rgb(146, 162, 190);
 }
 
 #introScreen {
@@ -27,4 +24,48 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+#playNow {
+  background: blanchedalmond;
+  background-image: -webkit-linear-gradient(top,#db0000,#ad0000);
+  background-image: -moz-linear-gradient(top, #db0000,#ad0000);
+  background-image: -ms-linear-gradient(top, #db0000, #ad0000);
+  background-image: -o-linear-gradient(top, #db0000, #ad0000);
+  background-image: linear-gradient(to bottom, #db0000, #ad0000);
+}
+#playNow:hover {
+	background: #ff0000;
+	background-image: -webkit-linear-gradient(top, #ff0000, #c70000);
+	background-image: -moz-linear-gradient(top, #ff0000, #c70000);
+	background-image: -ms-linear-gradient(top, #ff0000, #c70000);
+	background-image: -o-linear-gradient(top, #ff0000, #c70000);
+	background-image: linear-gradient(to bottom, #ff0000, #c70000);
+	text-decoration: none;
+}
+
+#wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 500px;
+	width: 875px;
+	
+}
+#monteContainer {
+  display: none;
+}
+
+#mainSection {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+#cardTable {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  height: 200px;
+  width: 300px;
 }
