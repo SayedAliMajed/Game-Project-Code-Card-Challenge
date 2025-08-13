@@ -7,14 +7,17 @@
     <script defer src="./js/app.js"></script>
     <title>Code Cards Challenge</title>
 </head>
+
 <body>
-  <header id="mainHeader">Welcome to Code Card Challenge!
+  <header id="mainHeader">
+    Welcome to Code Card Challenge!
   <img id="logo" src="images/FinalLogo.png" alt="Code Card Challenge Logo">
     <h2> Objective of the Game</h2>
  </header>
 
   <div id="wrapper">
-    <!-- 1St introScreen details -->
+
+    <!-- intro Screen -->
   <div id="introScreen"> 
     
     <p> Complete 5 stages of gameplay by mastering the Monte card shuffle and answering 
@@ -32,11 +35,11 @@
       </ol>
    <button type="button" id="playNow">Start Code Cards Game</button>
    </div>
-   <!-- 2nd Screen monteContainer -->
+   <!-- Monte Game Screen -->
    <div id="monteContainer">
     <div id="header">
       <div id="stageBoard">
-        <span> stage</span>
+        <span>Stage</span>
         <div id="speedBg">
           <h4 id="speed">1</h4>
         </div>
@@ -45,14 +48,12 @@
 			<div id="scoreBoard">
 				<span>Points</span>
 				<div class="hud">
-			
-					<h3 id="score">5</h3>
+			   <h3 id="score">0</h3>
 				</div>
 			</div>
 
       <div id="mainSection">
-
-			<div id="cardTable">
+       <div id="cardTable">
 				<div class="wholeCard">
 					<div class="cardFrontWrapper" id="card1Wrapper">
 						<img class="playingCard" id="card1" src="images/jackClubs.png">
@@ -81,8 +82,9 @@
       <div class="shuffle">
 					<button type="button" id="shuffleBtn">Shuffle</button>
 				</div>
+      </div>
+    </div>
    </div>
- </div>
 
 </body>
 </html>

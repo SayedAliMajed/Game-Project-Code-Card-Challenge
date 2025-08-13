@@ -3,6 +3,13 @@
   box-sizing: border-box;
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Libre Baskerville', serif;
+  background-color: rgb(146, 162, 190);
+}
+
 #logo {
   width: 300px;
   height: 300px;
@@ -13,8 +20,8 @@
   background-color: aliceblue;
   align-content: center;
   border-radius: 20px;
-
 }
+
 #mainHeader {
   text-align: center;
   background-color: #2c3e50;   /* dark blue/gray */
@@ -30,57 +37,48 @@
   border-radius: 10px;
 }
 
-body {
-  display: flex;
-	align-items: center;
-  justify-content: center;
-	font-family: 'Libre Baskerville', serif;
-	background-color: rgb(146, 162, 190);
+#wrapper {
+	
+  max-width: 900px;   
+  margin: 0 auto;     
+  padding: 20px;    
+  background-color: beige;
 }
-body, html {
-  margin: 0;
-  padding: 0;
-}
-
+/* Into Screen */
 #introScreen {
  
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 80vh;
   text-align: center
 }
 
-#playNow {
-  background: blanchedalmond;
-  background-image: -webkit-linear-gradient(top,#db0000,#ad0000);
-  background-image: -moz-linear-gradient(top, #db0000,#ad0000);
-  background-image: -ms-linear-gradient(top, #db0000, #ad0000);
-  background-image: -o-linear-gradient(top, #db0000, #ad0000);
-  background-image: linear-gradient(to bottom, #db0000, #ad0000);
-  margin-bottom: 200px;
-}
-#playNow:hover {
-	background: #ff0000;
-	background-image: -webkit-linear-gradient(top, #ff0000, #c70000);
-	background-image: -moz-linear-gradient(top, #ff0000, #c70000);
-	background-image: -ms-linear-gradient(top, #ff0000, #c70000);
-	background-image: -o-linear-gradient(top, #ff0000, #c70000);
-	background-image: linear-gradient(to bottom, #ff0000, #c70000);
-	text-decoration: none;
+#introScreen ol {
+  text-align: left;
 }
 
-#wrapper {
-	
-  max-width: 500px;   
-  margin: 0 auto;     
-  padding: 20px;    
-  background-color: beige;
+#playNow {
+  background: linear-gradient(to bottom, #db0000, #ad0000);
+  color: white;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
 }
+#playNow:hover {
+  background: linear-gradient(to bottom, #ff0000, #c70000);
+}
+ 
+/* Monte Game Screen */
 
 #monteContainer {
   display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 
