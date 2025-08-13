@@ -33,7 +33,7 @@ html, body {
 #mainHeader img {
   display: block;
   margin: 10px auto;
-  max-width: 150px;
+  max-width: 3000px;
   border-radius: 10px;
 }
 
@@ -51,7 +51,7 @@ html, body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 80vh;
+  margin-top: 10vh;
   text-align: center
 }
 
@@ -81,23 +81,19 @@ html, body {
   justify-content: center;
 }
 
-
-#mainSection {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-}
-
 #cardTable {
   display: flex;
-  flex-direction: row;
+  justify-content: center;
   flex-wrap: wrap;
-  height: 265px;
+  height: auto;
 }
 
-.playingCard {
-	width: 140px;
-	margin: 30px 15px;
+.playingCard, .cardBack {
+
+	width: 20vw;
+  max-width: 140px;
+  height: auto;
+	margin: 10px;
 }
 
 .cardBack {
