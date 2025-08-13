@@ -7,7 +7,7 @@
   width: 300px;
   height: 300px;
   display: block;
-  margin-top: 600px;
+  margin-top: 100px;
   margin-left: auto;
   margin-right: auto;
   background-color: aliceblue;
@@ -15,14 +15,31 @@
   border-radius: 20px;
 
 }
+#mainHeader {
+  text-align: center;
+  background-color: #2c3e50;   /* dark blue/gray */
+  color: white;
+  padding: 20px;
+  font-size: 1.5rem;
+}
 
+#mainHeader img {
+  display: block;
+  margin: 10px auto;
+  max-width: 150px;
+  border-radius: 10px;
+}
 
 body {
   display: flex;
-	justify-content: center;
 	align-items: center;
+  justify-content: center;
 	font-family: 'Libre Baskerville', serif;
 	background-color: rgb(146, 162, 190);
+}
+body, html {
+  margin: 0;
+  padding: 0;
 }
 
 #introScreen {
@@ -31,6 +48,8 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 50px;
+  text-align: center
 }
 
 #playNow {
@@ -53,16 +72,17 @@ body {
 }
 
 #wrapper {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 500px;
-	width: 875px;
 	
+  max-width: 500px;   
+  margin: 0 auto;     
+  padding: 20px;    
+  background-color: beige;
 }
+
 #monteContainer {
   display: none;
 }
+
 
 #mainSection {
   display: flex;
@@ -73,7 +93,7 @@ body {
 #cardTable {
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   height: 265px;
 }
 

@@ -11,7 +11,7 @@ console.log(playNowEl);
 /*-------------- Functions -------------*/
 playNowEl.addEventListener('click', () => {
     document.getElementById('introScreen').style.display = 'none';
-    document.getElementById('monteContainer') = 'block';
+    document.getElementById('monteContainer') = 'flex';
 });
 
 
