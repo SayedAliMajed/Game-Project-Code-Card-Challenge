@@ -14,7 +14,7 @@
     <h1> Welcome to Code Card Challenge!</h1>
     <h3> Objective of the Game</h3>
     <p> Complete 5 stages of gameplay by mastering the Monte card shuffle and answering 
-      coding quiz questions. Earn 12 or more points to win by correctly 
+      coding quiz questions.Earn 12 or more points to win by correctly 
       identifying winning cards and answering coding questions in your chosen topic 
       (HTML, CSS, or JavaScript). Maintain your streak to increase shuffle speed and challenge!</p>
       <ol>
@@ -28,8 +28,7 @@
       </ol>
    <button type="button" id="playNow">Start Code Cards Game</button>
    </div>
-  </div>
-
+  
    <div id="monteContainer">
     <div id="header">
       <div id="stageBoard">
@@ -38,6 +37,43 @@
           <h4 id="speed">1</h4>
         </div>
     </div>
+    <div id="messageBoard"><h4 id="messages">Watch the <span>Queen of Hearts</span></h4></div>
+			<div id="scoreBoard">
+				<span>Points</span>
+				<div class="hud">
+					<img id="money" src="images/coin.gif">
+					<h3 id="score">5</h3>
+				</div>
+			</div>
+
+      <div id="mainSection">
+
+			<div id="cardTable">
+				<div class="wholeCard">
+					<div class="cardFrontWrapper" id="card1Wrapper">
+						<img class="playingCard" id="card1" src="images/jackClubs.png">
+					</div>
+					<div class="cardBackWrapper" id="back1">
+						<img class="cardBack" id="cardBack1" src="images/cardBack.png">
+					</div>
+				</div>
+				<div class="wholeCard">
+					<div class="cardFrontWrapper" id="card2Wrapper">
+						<img class="playingCard" id="card2" src="images/queenHearts.png">
+					</div>
+					<div class="cardBackWrapper" id="back2">
+						<img class="cardBack" id="cardBack2" src="images/cardBack.png">
+					</div>
+				</div>
+				<div class="wholeCard">
+					<div class="cardFrontWrapper" id="card3Wrapper">
+						<img class="playingCard" id="card3" src="images/jackSpades.png">
+					</div>
+					<div class="cardBackWrapper" id="back3">
+						<img class="cardBack" id="cardBack3" src="images/cardBack.png">
+					</div>
+				</div>
+			</div>
    </div>
  </div>
 
