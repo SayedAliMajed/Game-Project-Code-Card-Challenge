@@ -13,6 +13,7 @@ const tableEl = document.getElementById('cardTable');
 let playingCard = ['card1','card2','card3'];
 let shuffleDuration = 3000;
 let shuffleSpeed = 200;
+let elapsed = 0;
 
 
 /*----- Cached Element References  -----*/
@@ -38,6 +39,30 @@ function renderCards(order) {
   });
 }
 
+function swapCardPositions(cards, i, j) {
+  [cards[i], cards[j]] = [cards[j], cards[i]];
+  renderCards(cards);
+}
+
+//Animatation Shuffle cards but the final card will be from Fisher-Yates.
+
+function animateShuffle(cards) {
+    elapsed = 0;
+    let itervalId = setInterval(() => {
+    elapsed += shuffleSpeed;
+    
+    let i = Math.floor(Math.random() * cards.length);
+    let j = Math.floor(Math.random() * cards.length);
+    swapCardPositions(cards, i, j);
+
+    if (elapsed >= shuffleDuration) {
+      clearInterval(itervalId);
+
+      cards = shuffle(cards);
+      renderCards(cards);
+    }
+  }, shuffleSpeed);
+}
 
 /*-------------- Event Listener -------------*/
  startBtn.addEventListener('click', () => {
@@ -46,8 +71,6 @@ function renderCards(order) {
   });
 
   shuffleBtn.addEventListener('click', () => {
-    playingCard = shuffle(playingCard);
-    console.log("Shuffled order:", playingCard);
-    renderCards(playingCard);
+    animateShuffle(playingCard);
   });
 
