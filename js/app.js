@@ -11,6 +11,9 @@ const tableEl = document.getElementById('cardTable');
 
 /*---------- Variables (state) ---------*/
 let playingCard = ['card1','card2','card3'];
+let shuffleDuration = 3000;
+let shuffleSpeed = 200;
+
 
 /*----- Cached Element References  -----*/
 
@@ -40,5 +43,11 @@ function renderCards(order) {
  startBtn.addEventListener('click', () => {
     intro.style.display = 'none';
     monte.style.display = 'flex';
+  });
+
+  shuffleBtn.addEventListener('click', () => {
+    playingCard = shuffle(playingCard);
+    console.log("Shuffled order:", playingCard);
+    renderCards(playingCard);
   });
 
