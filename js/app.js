@@ -5,6 +5,7 @@ const monte = document.getElementById('monteContainer');
 const shuffleBtn = document.getElementById('shuffleBtn');
 const playingCardsEL= document.getElementsByClassName('playingCard');
 const tableEl = document.getElementById('cardTable');
+const cardWrappers = document.getElementsByClassName('wholeCard');
 
 
 
@@ -44,7 +45,7 @@ function swapCardPositions(cards, i, j) {
   renderCards(cards);
 }
 
-//Animatation Shuffle cards but the final card will be from Fisher-Yates.
+//Animation Shuffle cards, but the final shuffling will be from Fisher-Yates.
 
 function animateShuffle(cards) {
     elapsed = 0;
@@ -64,13 +65,29 @@ function animateShuffle(cards) {
   }, shuffleSpeed);
 }
 
+function flipCardsBack() {
+  playingCard.forEach((id, index) => {
+    cardWrappers[index].classList.add('flipped');
+  });
+}
+
+function flipCardsFront() {
+  for (let i = 0; i < cardWrappers.length; i++) {
+    cardWrappers[i].classList.remove('flipped');
+  }
+}
+
 /*-------------- Event Listener -------------*/
  startBtn.addEventListener('click', () => {
     intro.style.display = 'none';
     monte.style.display = 'flex';
   });
 
-  shuffleBtn.addEventListener('click', () => {
-    animateShuffle(playingCard);
-  });
+shuffleBtn.addEventListener('click', () => {
+  flipCardsBack(); // all face-down
+  animateShuffle(playingCard);
+  setTimeout(() => {
+    flipCardsFront(); // reveal after shuffle finishes
+  }, shuffleDuration + 100); // little buffer after animation
+});
 
