@@ -3,28 +3,38 @@ const startBtn = document.getElementById('playNow');
 const intro = document.getElementById('introScreen');
 const monte = document.getElementById('monteContainer');
 const shuffleBtn = document.getElementById('shuffleBtn');
-
 const playingCardsEL= document.getElementsByClassName('playingCard');
+const tableEl = document.getElementById('cardTable');
 
 
 
 
 /*---------- Variables (state) ---------*/
-let array = ['card1','card2','card3'];
+let playingCard = ['card1','card2','card3'];
 
 /*----- Cached Element References  -----*/
 
 
 /*-------------- Functions -------------*/
-function shuffle(array) {
-  let currentIndex = array.length, randomIndex;
-  while (currentIndex !==0) {
+// Fisher–Yates shuffle algorithm
+function shuffle(cards) {
+  let currentIndex = cards.length, randomIndex;
+  while (currentIndex !== 0) {
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
-    [array[currentIndex], array[randomIndex]] = [[randomIndex], array[currentIndex]];
+    [cards[currentIndex], cards[randomIndex]] =
+      [cards[randomIndex], cards[currentIndex]];
   }
-  return array;
+  return cards;
 }
+
+function renderCards(order) {
+  order.forEach(id => {
+    const cardWrapper = document.getElementById(id).closest('.wholeCard'); 
+    tableEl.appendChild(cardWrapper);
+  });
+}
+
 
 /*-------------- Event Listener -------------*/
  startBtn.addEventListener('click', () => {
@@ -32,12 +42,3 @@ function shuffle(array) {
     monte.style.display = 'flex';
   });
 
-  shuffleBtn.addEventListener('click', () => {
-    let currentIndex = array.length, randomIndex;
-    while (currentIndex !==0) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-    [array[currentIndex], array[randomIndex]] = [[randomIndex], array[currentIndex]];
-  }
-  return array;
-});
