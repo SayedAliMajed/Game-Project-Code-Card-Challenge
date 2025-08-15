@@ -17,24 +17,38 @@
 
   <div id="wrapper">
 
-    <!-- intro Screen -->
-  <div id="introScreen"> 
-    
-    <p> Complete 5 stages of gameplay by mastering the Monte card shuffle and answering 
-      coding quiz questions.Earn 12 or more points to win by correctly 
-      identifying winning cards and answering coding questions in your chosen topic 
-      (HTML, CSS, or JavaScript). Maintain your streak to increase shuffle speed and challenge!</p>
-      <ol>
-        <li>Choose Your Quiz Topic: Pick HTML, CSS, or JavaScript at the start. </li>
-        <li>Monte Card Shuffle:  Watch the cards shuffle and 
-          select the winning card. Correct guess scores 2 points. </li>
-        <li>Coding Quiz: Answer a multiple-choice 
-          question based on your topic. Correct answer scores 2 points. </li>
-        <li>Progress Through 5 Stages:  Each stage has one Monte round plus one quiz.</li>
-        <li>Win the Game: Score at least 12 points after 5 stages to win!</li>
-      </ol>
-   <button type="button" id="playNow">Start Code Cards Game</button>
-   </div>
+   <!-- Intro Screen -->
+<div id="introScreen">
+  <h2>Choose your quiz topic</h2>
+
+  <div id="topicSelector">
+    <label>
+      <input type="radio" name="quizTopic" value="JS"> JavaScript
+    </label>
+    <label>
+      <input type="radio" name="quizTopic" value="CSS"> CSS
+    </label>
+    <label>
+      <input type="radio" name="quizTopic" value="HTML"> HTML
+    </label>
+  </div>
+
+  <!-- Game Instructions -->
+  <div id="gameInstructions">
+    <h3>How to Play</h3>
+    <ol>
+      <li>Pick your quiz topic above (JavaScript, CSS, or HTML).</li>
+      <li>Each stage starts with a **Three-Card Monte** game — find the Queen of Hearts.</li>
+      <li>Correct guess in Monte = <strong>+2 points.</strong></li>
+      <li>After Monte, you’ll answer a quiz question from your chosen topic.</li>
+      <li>Correct quiz answer = <strong>+2 points.</strong></li>
+      <li>There are 5 stages — score 12 or more points to win the game.</li>
+    </ol>
+  </div>
+
+  <button type="button" id="playNow" disabled>Start Code Cards Game</button>
+</div>
+
    <!-- Monte Game Screen -->
    <div id="monteContainer">
     <div id="header">
@@ -84,6 +98,23 @@
 				</div>
       </div>
     </div>
+    <!-- Quiz Screen-->
+     <div id="quizContainer">
+      <div id="question"></div>
+      <div id="options"></div>
+      <button id="submitBtn"> Submit Answer</button>
+      <div id="result"></div>
+     </div>
+    <!-- Result Screen -->
+     <div class="results-container">
+        <h1>Final Game Results</h1>
+        <div class="score-display">
+         <p>Your Score: <span id="final-score">0</span> / <span id="total-questions">0</span></p>
+        </div>
+        <div class="feedback-message">
+            <p id="feedback-text">Well done!</p>
+        </div>
+        <button id="restartBtn">Play Again</button>
    </div>
 
 </body>
