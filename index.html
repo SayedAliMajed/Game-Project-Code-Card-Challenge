@@ -50,7 +50,7 @@
 </div>
 
    <!-- Monte Game Screen -->
-   <div id="monteContainer">
+   <div id="monteContainer" style="display:none;">
     <div id="header">
       <div id="stageBoard">
         <span>Stage</span>
@@ -99,14 +99,14 @@
       </div>
     </div>
     <!-- Quiz Screen-->
-     <div id="quizContainer">
+     <div id="quizContainer" style="display:none;">
       <div id="question"></div>
       <div id="options"></div>
       <button id="submitBtn"> Submit Answer</button>
       <div id="result"></div>
      </div>
     <!-- Result Screen -->
-     <div class="results-container">
+     <div class="results-container" id="resultContainer" style="display:none;">
         <h1>Final Game Results</h1>
         <div class="score-display">
          <p>Your Score: <span id="final-score">0</span> / <span id="total-questions">0</span></p>

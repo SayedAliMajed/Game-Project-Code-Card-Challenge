@@ -1,3 +1,13 @@
+function showScreen(screenId) {
+  const screens = ['introScreen', 'monteContainer', 'quizContainer', 'resultContainer'];
+  screens.forEach(id => {
+    document.getElementById(id).style.display = (id === screenId) ? 'flex' : 'none';
+  });
+}
+
+// To show Intro Screen at start
+showScreen('monteContainer');
+
 /*-------------- Constants -------------*/
 const startBtn = document.getElementById('playNow');
 const intro = document.getElementById('introScreen');
@@ -6,6 +16,7 @@ const shuffleBtn = document.getElementById('shuffleBtn');
 const playingCardsEL= document.getElementsByClassName('playingCard');
 const tableEl = document.getElementById('cardTable');
 const cardWrappers = document.getElementsByClassName('wholeCard');
+const topicRadios = document.querySelectorAll('input [name ="quizTopic"]');
 
 
 
