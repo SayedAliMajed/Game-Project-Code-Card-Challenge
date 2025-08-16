@@ -6,17 +6,24 @@ function showScreen(screenId) {
 }
 
 // To show Intro Screen at start
-showScreen('monteContainer');
+showScreen('quizContainer');
 
 /*-------------- Constants -------------*/
-const startBtn = document.getElementById('playNow');
 const intro = document.getElementById('introScreen');
 const monte = document.getElementById('monteContainer');
+const quizScreen = document.getElementById('quizContainer');
+const resultScreen = document.getElementById('resultScreen');
+
+const startBtn = document.getElementById('playNow');
 const shuffleBtn = document.getElementById('shuffleBtn');
+const submitBtn = document.getElementById('submitBtn');
+
 const playingCardsEL= document.getElementsByClassName('playingCard');
 const tableEl = document.getElementById('cardTable');
 const cardWrappers = document.getElementsByClassName('wholeCard');
 const topicRadios = document.querySelectorAll('input [name ="quizTopic"]');
+const scoreEl = Document.getElementById('scoreDisplay');
+
 
 
 
@@ -27,6 +34,13 @@ let shuffleDuration = 3000;
 let shuffleSpeed = 200;
 let elapsed = 0;
 
+let gameState = {
+  stage:1,
+  score:0,
+  topic: null,
+  totalStages:5,
+  pointsToWin:12
+};
 
 /*----- Cached Element References  -----*/
 

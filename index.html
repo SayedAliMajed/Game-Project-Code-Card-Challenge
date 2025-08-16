@@ -100,15 +100,21 @@
     </div>
     <!-- Quiz Screen-->
      <div id="quizContainer" style="display:none;">
-      <div id="question"></div>
-      <div id="options"></div>
+      <h1> Quiz Game</h1>
+      <div class="quiz">
+      <h2 id="question"> question goes here </h2>
+      <div id="answer-buttons">
+        <button class="btn"> Answer 1</button>
+        <button class="btn"> Answer 2</button>
+        <button class="btn"> Answer 3</button>
+      </div>
       <button id="submitBtn"> Submit Answer</button>
-      <div id="result"></div>
+      <div id="result">
      </div>
     <!-- Result Screen -->
-     <div class="results-container" id="resultContainer" style="display:none;">
+     <div class="results-container" id="resultScreen" style="display:none;">
         <h1>Final Game Results</h1>
-        <div class="score-display">
+        <div class="score-display" id="scoreDisplay">
          <p>Your Score: <span id="final-score">0</span> / <span id="total-questions">0</span></p>
         </div>
         <div class="feedback-message">
