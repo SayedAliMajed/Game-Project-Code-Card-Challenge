@@ -24,33 +24,31 @@
 
    <!-- Intro Screen -->
   <div id="introScreen">
-  <h2>Choose your quiz topic</h2>
-   <div id="topicSelector">
-    <label>
-      <input type="radio" name="quizTopic" value="JS"> JavaScript
-    </label>
-    <label>
-      <input type="radio" name="quizTopic" value="CSS"> CSS
-    </label>
-    <label>
-      <input type="radio" name="quizTopic" value="HTML"> HTML
-    </label>
-   </div>
-
-  <!-- Game Instructions -->
-   <div id="gameInstructions">
-    <h3>How to Play</h3>
-    <ol>
-      <li>Pick your quiz topic above (JavaScript, CSS, or HTML).</li>
-      <li>Each stage starts with a **Three-Card Monte** game — find the Queen of Hearts.</li>
-      <li>Correct guess in Monte = <strong>+2 points.</strong></li>
-      <li>After Monte, you’ll answer a quiz question from your chosen topic.</li>
-      <li>Correct quiz answer = <strong>+2 points.</strong></li>
-      <li>There are 5 stages — score 12 or more points to win the game.</li>
-    </ol>
-   </div>
+  <div id="introScreen">
+  <div class="intro-row">
+    <div class="intro-left">
+      <h2>Choose your quiz topic</h2>
+      <div id="topicSelector">
+        <label><input type="radio" name="quizTopic" value="JS"> JavaScript</label>
+        <label><input type="radio" name="quizTopic" value="CSS"> CSS</label>
+        <label><input type="radio" name="quizTopic" value="HTML"> HTML</label>
+      </div>
+    </div>
+    <div class="intro-right" id="gameInstructions">
+      <h3>How to Play</h3>
+      <ol>
+        <li>Pick your quiz topic above (JavaScript, CSS, or HTML).</li>
+        <li>Each stage starts with a <strong>Three-Card Monte</strong> game — find the Queen of Hearts.</li>
+        <li>Correct guess in Monte = <strong>+2 points.</strong></li>
+        <li>After Monte, you’ll answer a quiz question from your chosen topic.</li>
+        <li>Correct quiz answer = <strong>+2 points.</strong></li>
+        <li>There are 5 stages — score 12 or more points to win the game.</li>
+      </ol>
+    </div>
+  </div>
   <button type="button" id="playNow" disabled>Start Code Cards Game</button>
 </div>
+
 
    <!-- Monte Game Screen -->
   <div id="monteContainer" style="display:none;">
