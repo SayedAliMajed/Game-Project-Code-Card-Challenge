@@ -14,7 +14,7 @@ const monte = document.getElementById('monteContainer');
 const quizScreen = document.getElementById('quizContainer');
 const resultScreen = document.getElementById('resultScreen');
 
-const startBtn = document.getElementById('playNow');
+const playNowBtn = document.getElementById('playNow');
 const shuffleBtn = document.getElementById('shuffleBtn');
 const submitBtn = document.getElementById('submitBtn');
 
@@ -23,6 +23,8 @@ const tableEl = document.getElementById('cardTable');
 const cardWrappers = document.getElementsByClassName('wholeCard');
 const topicRadios = document.querySelectorAll('input [name ="quizTopic"]');
 const scoreEl = Document.getElementById('scoreDisplay');
+const questionEl = document.getElementById('question');
+const answerButtons = document.getElementById('answer-buttons');
 
 
 
@@ -33,6 +35,7 @@ let playingCard = ['card1','card2','card3'];
 let shuffleDuration = 3000;
 let shuffleSpeed = 200;
 let elapsed = 0;
+playNowBtn.disabled = true;
 
 let gameState = {
   stage:1,
@@ -41,6 +44,9 @@ let gameState = {
   totalStages:5,
   pointsToWin:12
 };
+
+
+
 
 /*----- Cached Element References  -----*/
 
@@ -115,4 +121,21 @@ shuffleBtn.addEventListener('click', () => {
     flipCardsFront(); // reveal after shuffle finishes
   }, shuffleDuration + 100); // little buffer after animation
 });
+
+// Enable Play Now when a topic is selected
+topicRadios.forEach(radio => {
+  radio.addEventListener('change', () => {
+    playNowBtn.disabled = false;
+  });
+});
+
+playNowBtn.addEventListener('click', () => {
+  const selectedTopic = document.querySelector('input[name="quizTopic"]:checked');
+  if (selectedTopic) {
+    gameState.topic = selectedTopic.value;
+  }
+
+  gameState.score = 0;
+  gameState.stage = 1;
+})
 

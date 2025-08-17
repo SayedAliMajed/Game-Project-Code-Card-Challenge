@@ -13,15 +13,18 @@
     Welcome to Code Card Challenge!
   <img id="logo" src="images/FinalLogo.png" alt="Code Card Challenge Logo">
     <h2> Objective of the Game</h2>
+    <div id="hud">
+     <span>Stage: <span id="stageDisplay">1</span></span>
+     <span>Points: <span id="scoreDisplay">0</span></span>
+    </div>
  </header>
 
-  <div id="wrapper">
+ <div id="wrapper">
 
    <!-- Intro Screen -->
-<div id="introScreen">
+  <div id="introScreen">
   <h2>Choose your quiz topic</h2>
-
-  <div id="topicSelector">
+   <div id="topicSelector">
     <label>
       <input type="radio" name="quizTopic" value="JS"> JavaScript
     </label>
@@ -31,10 +34,10 @@
     <label>
       <input type="radio" name="quizTopic" value="HTML"> HTML
     </label>
-  </div>
+   </div>
 
   <!-- Game Instructions -->
-  <div id="gameInstructions">
+   <div id="gameInstructions">
     <h3>How to Play</h3>
     <ol>
       <li>Pick your quiz topic above (JavaScript, CSS, or HTML).</li>
@@ -44,29 +47,15 @@
       <li>Correct quiz answer = <strong>+2 points.</strong></li>
       <li>There are 5 stages — score 12 or more points to win the game.</li>
     </ol>
-  </div>
-
+   </div>
   <button type="button" id="playNow" disabled>Start Code Cards Game</button>
 </div>
 
    <!-- Monte Game Screen -->
-   <div id="monteContainer" style="display:none;">
-    <div id="header">
-      <div id="stageBoard">
-        <span>Stage</span>
-        <div id="speedBg">
-          <h4 id="speed">1</h4>
-        </div>
-    </div>
+  <div id="monteContainer" style="display:none;">
+    
     <div id="messageBoard"><h4 id="messages">Watch the <span>Queen of Hearts</span></h4></div>
-			<div id="scoreBoard">
-				<span>Points</span>
-				<div class="hud">
-			   <h3 id="score">0</h3>
-				</div>
-			</div>
-
-      <div id="mainSection">
+		<div id="mainSection">
        <div id="cardTable">
 				<div class="wholeCard">
 					<div class="cardFrontWrapper" id="card1Wrapper">
@@ -79,7 +68,7 @@
 				<div class="wholeCard">
 					<div class="cardFrontWrapper" id="card2Wrapper">
 						<img class="playingCard" id="card2" src="images/queenHearts.png">
-					</div>
+				  </div>
 					<div class="cardBackWrapper" id="back2">
 						<img class="cardBack" id="cardBack2" src="images/cardBack.png">
 					</div>
@@ -95,26 +84,27 @@
 			</div>
       <div class="shuffle">
 					<button type="button" id="shuffleBtn">Shuffle</button>
-				</div>
-      </div>
+			</div>
     </div>
+  </div>
     <!-- Quiz Screen-->
-     <div id="quizContainer" style="display:none;">
-      <h1> Quiz Game</h1>
-      <div class="quiz">
-      <h2 id="question"> question goes here </h2>
+  <div id="quizContainer" style="display:none;">
+    <h1> Quiz Game</h1>
+    <div class="quiz">
+    <h2 id="question"> question goes here </h2>
       <div id="answer-buttons">
         <button class="btn"> Answer 1</button>
         <button class="btn"> Answer 2</button>
         <button class="btn"> Answer 3</button>
       </div>
+    </div>
       <button id="submitBtn"> Submit Answer</button>
-      <div id="result">
-     </div>
-    <!-- Result Screen -->
-     <div class="results-container" id="resultScreen" style="display:none;">
+      <div id="result"></div>
+  </div>
+  <!-- Result Screen -->
+  <div class="results-container" id="resultScreen" style="display:none;">
         <h1>Final Game Results</h1>
-        <div class="score-display" id="scoreDisplay">
+        <div class="score-display" id="finalScoreDisplay">
          <p>Your Score: <span id="final-score">0</span> / <span id="total-questions">0</span></p>
         </div>
         <div class="feedback-message">
