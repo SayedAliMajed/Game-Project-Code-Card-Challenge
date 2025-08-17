@@ -11,29 +11,36 @@ body {
   padding: 0;
 }
 
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
 /* Main Header Styling */
 #mainHeader {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: 12px 18pbx 12px 18px;
-  background: linear-gradient(90deg, #314770 0%, #37a4ec 100%);
+  position: relative;
+  background: linear-gradient(90deg, #314770 0%, #7fa4ec 100%);
+  color:#fff;
+  padding: 20px 0 20px 0;
   border-bottom-left-radius: 16px;
   border-bottom-right-radius: 16px;
   font-family: 'Libre Baskerville', serif;
-  color:#fff
+  text-align: center;
 }
 
 #logo {
-  width: 72px;
-  height: 72px;
+  position:absolute;
+  top: 30px;
+  left: 20px;
+  width: 120px;
+  height: 120px;
   margin: 0 22px 0 0;
   border-radius: 8px;
   box-shadow: 0 3px 12px rgba(60, 80, 120, .10);
   background: #fff;
   border: 2px solid #a2b5da;
-  display: block;
 }
 
 .header-text {
@@ -43,7 +50,7 @@ body {
 }
 
 .header-text h2 {
-  font-size: 1rem;
+  font-size: 1.25rem;
   font-weight: 400;
   margin-top: 8px;
   color: #e0ecff;
@@ -58,9 +65,9 @@ body {
 
 /* Wrapper Container */
 #wrapper {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 20px;
+  flex-grow:1;
+  overflow: auto;
+  padding: 10px 20px;
 }
 
 /* Intro Screen Container */

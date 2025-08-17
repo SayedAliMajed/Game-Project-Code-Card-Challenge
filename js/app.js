@@ -1,5 +1,5 @@
 function showScreen(screenId) {
-  const screens = ['introScreen', 'monteContainer', 'quizContainer', 'resultContainer'];
+  const screens = ['introScreen', 'monteContainer', 'quizContainer', 'resultScreen'];
   screens.forEach(id => {
     document.getElementById(id).style.display = (id === screenId) ? 'flex' : 'none';
   });
@@ -26,7 +26,26 @@ const scoreEl = document.getElementById('scoreDisplay');
 const questionEl = document.getElementById('question');
 const answerButtons = document.getElementById('answer-buttons');
 
-const questions = require('./Data.js');
+// Questions
+
+const questions = [
+    {
+        question:'Which keyword is used to declare a variable in JavaScript that cannot be reassigned?',
+        answers: [
+            {text: 'Var', correct:false},
+            {text: 'let', correct:false},
+            {text: 'const', correct:true},
+        ]
+    },
+    {
+        question:'What is the purpose of the addEventListener() method in JavaScript?',
+        answers: [
+            {text: 'To create a new HTML element.', correct:false},
+            {text: 'To attach an event handler to a specified element.', correct:true},
+            {text: 'To remove an HTML element from the DOM.', correct:false},
+        ]
+    }
+]
 
 
 
@@ -82,7 +101,7 @@ function swapCardPositions(cards, i, j) {
 
 function animateShuffle(cards) {
     elapsed = 0;
-    let itervalId = setInterval(() => {
+    let intervalId = setInterval(() => {
     elapsed += shuffleSpeed;
     
     let i = Math.floor(Math.random() * cards.length);
@@ -90,7 +109,7 @@ function animateShuffle(cards) {
     swapCardPositions(cards, i, j);
 
     if (elapsed >= shuffleDuration) {
-      clearInterval(itervalId);
+      clearInterval(intervalId);
 
       cards = shuffle(cards);
       renderCards(cards);
@@ -111,35 +130,40 @@ function flipCardsFront() {
 }
 
 function startMonteRound() {
-  // Flip cards face up
   flipCardsFront();
 
   setTimeout(() => {
     flipCardsBack();
     animateShuffle(playingCard);
-    
+
     setTimeout(() => {
       flipCardsFront();
-      // Enable guesses here
+
+      // After Monte round ends, move to quiz screen:
+      showScreen('quizContainer');
+      startQuiz();
+
     }, shuffleDuration + 100);
-  }, 1500);  // peek time showing cards face up before shuffle
+  }, 1500);
 }
 
 /* ------------------------ Quiz Screen ----------------------*/
 
 function startQuiz() {
-  questions.currentQuestionIndex =0;
+  currentQuestionIndex = 0;
   submitBtn.innerHTML = "Next";
   showQuestion();
 }
-function showQuestion() {
-  let currentQuestion = questions[questions.currentQuestionIndex];
-  let questionNo = currentQuestionIndex + 1;
-  questionEl.innerHTML = questionNo + "." + currentQuestion.question;
 
+function showQuestion() {
+  let currentQuestion = questions[currentQuestionIndex];
+  let questionNo = currentQuestionIndex + 1;
+  questionEl.textContent = questionNo + ". " + currentQuestion.question;
+
+  answerButtons.innerHTML = '';  // clear old buttons before adding new ones
   currentQuestion.answers.forEach(answer => {
     const button = document.createElement("button");
-    button.innerHTML = answer.text;
+    button.textContent = answer.text;
     button.classList.add("btn");
     answerButtons.appendChild(button);
   });
@@ -148,16 +172,25 @@ function showQuestion() {
 /*-------------- Event Listener -------------*/
  
 playNowBtn.addEventListener('click', () => {
-    intro.style.display = 'none';
-    monte.style.display = 'flex';
-  });
+
+ const selectedTopic = document.querySelector('input[name="quizTopic"]:checked');
+  if (selectedTopic) {
+    gameState.topic = selectedTopic.value;
+  }
+  gameState.score = 0;
+  gameState.stage = 1;
+
+  showScreen('monteContainer');
+  startMonteRound();
+});
 
 shuffleBtn.addEventListener('click', () => {
+ 
   flipCardsBack(); // all face-down
   animateShuffle(playingCard);
   setTimeout(() => {
     flipCardsFront(); // reveal after shuffle finishes
-  }, shuffleDuration + 100); // little buffer after animation
+  }, shuffleDuration + 100); // little buffer after animation*/
 });
 
 // Enable Play Now when a topic is selected
@@ -167,19 +200,5 @@ topicRadios.forEach(radio => {
   });
 });
 
-playNowBtn.addEventListener('click', () => {
-  const selectedTopic = document.querySelector('input[name="quizTopic"]:checked');
-  if (selectedTopic) {
-    gameState.topic = selectedTopic.value;
-  }
 
-  gameState.score = 0;
-  gameState.stage = 1;
-
-  // Switch screens
-  intro.style.display = 'none';
-  monte.style.display = 'flex';
-
-  startMonteRound();
-});
 
