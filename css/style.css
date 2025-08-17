@@ -15,7 +15,7 @@ body {
 #mainHeader {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
   padding: 12px 18pbx 12px 18px;
   background: linear-gradient(90deg, #314770 0%, #37a4ec 100%);
@@ -23,23 +23,37 @@ body {
   border-bottom-right-radius: 16px;
   font-family: 'Libre Baskerville', serif;
   color:#fff
-  
 }
 
-#mainHeader h2 {
-  font-size: 1rem;
-  margin: 4px 0 0 0;
-  font-weight: 400;
-  color: #dae1f7;
-  letter-spacing: 0.3px;
-}
-
-#mainHeader img {
-  width: 100px;
-  height: auto;
-  margin: 8px auto 8px auto;
+#logo {
+  width: 72px;
+  height: 72px;
+  margin: 0 22px 0 0;
   border-radius: 8px;
-  box-shadow: 0 3px 12px rgba(60, 80, 120, 0.15);
+  box-shadow: 0 3px 12px rgba(60, 80, 120, .10);
+  background: #fff;
+  border: 2px solid #a2b5da;
+  display: block;
+}
+
+.header-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.header-text h2 {
+  font-size: 1rem;
+  font-weight: 400;
+  margin-top: 8px;
+  color: #e0ecff;
+  letter-spacing: 0.4px;
+
+}
+
+#hud {
+  margin-left: 34px;
+  font-size: 1rem;
 }
 
 /* Wrapper Container */
