@@ -39,8 +39,20 @@ let gameState = {
 
 
 
-/*----------------------------------- Functions --------------------------------------------*/
+/*----------------------------------- Functions -------------------------------------------*/
+playNowBtn.disabled = true;
+topicRadios.forEach(radio => {
+  radio.addEventListener('change', () => {
+    playNowBtn.disabled = false;
+  });
+});
 
+function startMonteRound() {
+  console.log("startMonteRound called - implement game logic here.");
+}
+
+
+/*------------------------------------ Event Listener -------------------------------------*/
 playNowBtn.addEventListener('click', () => {
   const selectedTopic = document.querySelector('input[name="quizTopic"]:checked');
   if (selectedTopic) {
@@ -57,3 +69,4 @@ playNowBtn.addEventListener('click', () => {
 shuffleBtn.addEventListener('click', () => {
   console.log('Shuffle started');
 });
+

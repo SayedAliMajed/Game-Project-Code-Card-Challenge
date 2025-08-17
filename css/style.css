@@ -70,21 +70,6 @@ html, body {
   padding: 10px 20px;
 }
 
-/* trying codes*/
-#introScreen {
-  background-color: rgba(255,0,0,0.1); /* light red */
-}
-.intro-row {
-  background-color: rgba(0,255,0,0.1); /* light green */
-}
-#playNow {
-  background-color: rgba(0,0,255,0.3); /* semi-transparent blue */
-}
-
-#introScreen {
-  display: block !important; /* enforce block */
-}
-
 /* Intro Screen Container */
 #introScreen {
   max-width: 610px;
@@ -96,6 +81,7 @@ html, body {
 }
 
 .intro-row {
+  display: block !important;
   display: flex;
   gap: 32px;
   justify-content: center;
@@ -111,6 +97,7 @@ html, body {
   padding: 26px 24px 20px 24px;
   min-width: 250px;
   flex: 1;
+  margin-bottom: 24px;
 }
 
 .intro-right {
