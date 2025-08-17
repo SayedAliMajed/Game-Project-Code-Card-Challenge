@@ -6,7 +6,7 @@ function showScreen(screenId) {
 }
 
 // To show Intro Screen at start
-showScreen('quizContainer');
+showScreen('introScreen');
 
 /*-------------- Constants -------------*/
 const intro = document.getElementById('introScreen');
@@ -21,8 +21,8 @@ const submitBtn = document.getElementById('submitBtn');
 const playingCardsEL= document.getElementsByClassName('playingCard');
 const tableEl = document.getElementById('cardTable');
 const cardWrappers = document.getElementsByClassName('wholeCard');
-const topicRadios = document.querySelectorAll('input [name ="quizTopic"]');
-const scoreEl = Document.getElementById('scoreDisplay');
+const topicRadios = document.querySelectorAll('input[name="quizTopic"]');
+const scoreEl = document.getElementById('scoreDisplay');
 const questionEl = document.getElementById('question');
 const answerButtons = document.getElementById('answer-buttons');
 
@@ -109,6 +109,22 @@ function flipCardsFront() {
     cardWrappers[i].classList.remove('flipped');
   }
 }
+
+function startMonteRound() {
+  // Flip cards face up
+  flipCardsFront();
+
+  setTimeout(() => {
+    flipCardsBack();
+    animateShuffle(playingCard);
+    
+    setTimeout(() => {
+      flipCardsFront();
+      // Enable guesses here
+    }, shuffleDuration + 100);
+  }, 1500);  // peek time showing cards face up before shuffle
+}
+
 /* ------------------------ Quiz Screen ----------------------*/
 
 function startQuiz() {
@@ -130,7 +146,8 @@ function showQuestion() {
 }
 
 /*-------------- Event Listener -------------*/
- startBtn.addEventListener('click', () => {
+ 
+playNowBtn.addEventListener('click', () => {
     intro.style.display = 'none';
     monte.style.display = 'flex';
   });
@@ -158,5 +175,11 @@ playNowBtn.addEventListener('click', () => {
 
   gameState.score = 0;
   gameState.stage = 1;
-})
+
+  // Switch screens
+  intro.style.display = 'none';
+  monte.style.display = 'flex';
+
+  startMonteRound();
+});
 

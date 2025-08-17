@@ -3,39 +3,59 @@
   box-sizing: border-box;
 }
 
-html, body {
-  margin: 0;
-  padding: 0;
+body {
+  font-family: 'Roboto', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+#mainHeader {
   font-family: 'Libre Baskerville', serif;
-  background-color: rgb(146, 162, 190);
 }
 
  #logo {
-  width: 100px;
-  height: 100px;
+ 
   display: block;
-  margin-top: 100px;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: aliceblue;
-  align-content: center;
-  border-radius: 20px;
+  margin: 30px auto 10px auto;
+  width: 180px;
+  height: 180px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 6px 24px rgba(60,80,120,.15);
+  border: 3px solid #a2b5da;
 }
 
 #mainHeader {
+  background: linear-gradient(90deg, #314770 0%, #7fa4ec 100%);
+  color: #fff;
   text-align: center;
-  background-color: #2c3e50;   /* dark blue/gray */
-  color: white;
-  padding: 20px;
-  font-size: 1.5rem;
+  padding: 36px 16px 20px 16px;
+  border-bottom-left-radius: 22px;
+  border-bottom-right-radius: 22px;
+}
+
+#mainHeader h2 {
+  font-size: 1.25rem;
+  font-weight: 400;
+  margin-top: 20px;
+  letter-spacing: 0.5px;
+  color: #e0ecff;
+}
+
+#mainHeader {
+  font-size: 2.2rem;
+  font-family: 'Libre Baskerville', serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 0;
 }
 
 #mainHeader img {
   display: block;
   margin: 10px auto;
-  max-width: 3000px;
+  max-width: 1000px;
   border-radius: 10px;
-}*/
+
+}
 
 #wrapper {
 	
@@ -46,31 +66,88 @@ html, body {
 }
 /* Into Screen */
 #introScreen {
- 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 10vh;
-  text-align: center
+  background: #f7fafc;
+  border: 1.5px solid #dedede;
+  border-radius: 18px;
+  box-shadow: 0 2px 14px rgba(50,70,90,.07);
+  max-width: 390px;
+  margin: 40px auto;
+  padding: 32px 28px 28px 28px;
 }
 
-#introScreen ol {
-  text-align: left;
+#topicSelector {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 18px;
+  margin-bottom: 22px;
+}
+
+#topicSelector label {
+  font-size: 1.05rem;
+  margin-right: 18px;
+  cursor: pointer;
+}
+
+#gameInstructions {
+  background-color: #f0f4fb;
+  padding: 20px 24px;
+  border-radius: 16px;
+  max-width: 480px;
+  margin: 24px auto 36px;
+  box-shadow: 0 4px 12px rgba(33, 88, 158, 0.12);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #2c3e50;
+}
+
+#gameInstructions h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+#gameInstructions ol {
+  padding-left: 24px;
+  line-height: 1.6;
+  font-size: 1.03rem;
+  color: #34495e;
+}
+
+#gameInstructions ol li {
+  margin-bottom: 12px;
+  position: relative;
+  padding-left: 12px;
 }
 
 #playNow {
-  background: linear-gradient(to bottom, #db0000, #ad0000);
-  color: white;
-  padding: 10px 20px;
-  font-size: 1rem;
+  background: linear-gradient(90deg, #db0000, #ad0000);
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 12px 32px;
   border: none;
+  border-radius: 10px;
   cursor: pointer;
-  margin-top: 20px;
+  margin-top: 24px;
+  transition: background 0.22s;
+  margin-top: 32px
 }
-#playNow:hover {
-  background: linear-gradient(to bottom, #ff0000, #c70000);
+
+#playNow {
+  transition: background-color 0.3s ease;
 }
+
+#playNow:disabled {
+  background: #ccc;
+  color: #fff;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+#playNow:hover:not(:disabled) {
+  background: linear-gradient(90deg, #ff3232, #c70000);
+}
+
  
 /* Monte Game Screen */
 
@@ -130,10 +207,11 @@ html, body {
 /* When flipped, front is hidden, back is shown */
 .wholeCard.flipped .cardFrontWrapper {
   transform: rotateY(180deg);
+}
 .wholeCard.flipped .cardBackWrapper {
   transform: rotateY(0deg);
 }
-}
+
 /* ---------- Quiz Screen -------------*/
 
 #quizContainer {
