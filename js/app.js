@@ -26,7 +26,7 @@ const scoreEl = Document.getElementById('scoreDisplay');
 const questionEl = document.getElementById('question');
 const answerButtons = document.getElementById('answer-buttons');
 
-
+const questions = require('./Data.js');
 
 
 
@@ -45,13 +45,15 @@ let gameState = {
   pointsToWin:12
 };
 
+let currentQuestionIndex =0;
 
 
 
 /*----- Cached Element References  -----*/
 
 
-/*-------------- Functions -------------*/
+/*------------------------------ Functions -----------------------------------------------*/
+/* ------------------------ Monte Screen ----------------------*/
 // Fisher–Yates shuffle algorithm
 function shuffle(cards) {
   let currentIndex = cards.length, randomIndex;
@@ -106,6 +108,25 @@ function flipCardsFront() {
   for (let i = 0; i < cardWrappers.length; i++) {
     cardWrappers[i].classList.remove('flipped');
   }
+}
+/* ------------------------ Quiz Screen ----------------------*/
+
+function startQuiz() {
+  questions.currentQuestionIndex =0;
+  submitBtn.innerHTML = "Next";
+  showQuestion();
+}
+function showQuestion() {
+  let currentQuestion = questions[questions.currentQuestionIndex];
+  let questionNo = currentQuestionIndex + 1;
+  questionEl.innerHTML = questionNo + "." + currentQuestion.question;
+
+  currentQuestion.answers.forEach(answer => {
+    const button = document.createElement("button");
+    button.innerHTML = answer.text;
+    button.classList.add("btn");
+    answerButtons.appendChild(button);
+  });
 }
 
 /*-------------- Event Listener -------------*/

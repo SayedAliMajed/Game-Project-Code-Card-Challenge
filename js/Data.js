@@ -1,4 +1,4 @@
-const question = [
+const questions = [
     {
         question:'Which keyword is used to declare a variable in JavaScript that cannot be reassigned?',
         answers: [
