@@ -140,69 +140,76 @@ html, body {
 
 /* Monte Game Screen */
 
-#monteContainer {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
 #cardTable {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  height: auto;
-}
-
-.playingCard, .cardBack {
-
-	width: 20vw;
-  max-width: 140px;
-  height: auto;
-	margin: 10px;
-}
-
-.cardBack {
-	width: 140px;
-	margin: 30px 15px;
-	position: relative;
-}
-
-
-/* Wrap front/back inside a .wholeCard container */
-.wholeCard {
   position: relative;
-  width:140px;
-  height: 200px;
-  perspective: 1000px;
+  margin: 30px auto;
+  width: 480px;  
+  height: 220px;
 }
 
-.cardFrontWrapper, .cardBackWrapper {
+.wholeCard {
   position: absolute;
   width: 140px;
   height: 200px;
-  backface-visibility: hidden;
-  transition: transform 0.6s ease;
-  top: 0;
-  left:0;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.16);
+  cursor: pointer;
+  transition: left 0.7s ease, transform 0.6s ease;
+  background-color: white;
+  overflow: hidden;
+  user-select: none;
 }
 
-.cardFrontWrapper img, .cardBackWrapper img {
+.wholeCard img {
   width: 100%;
   height: 100%;
+  /*display: block;*/
+  border-radius: 14px;
+}
+
+/* Back card hidden by default */
+.cardBack {
+  position: absolute;
+  top: 0; left: 0;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  display: none;
+}
+
+/* Front card visible */
+.cardFront {
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+ 
+}
+
+/* Flipped state: hide front, show back */
+.wholeCard.flipped .cardFront {
+  display: none;
+}
+
+.wholeCard.flipped .cardBack {
   display: block;
 }
 
-
-.cardBackWrapper {
-  transform: rotateY(180deg);
-  display: block;
-}
-/* When flipped, front is hidden, back is shown */
-.wholeCard.flipped .cardFrontWrapper {
-  transform: rotateY(180deg);
-}
-.wholeCard.flipped .cardBackWrapper {
-  transform: rotateY(0deg);
+.wholeCard:hover {
+  transform: scale(1.05);
+  z-index: 10;
 }
 
+#shuffleBtn {
+
+  display: inline-block;
+  margin: 0 auto;
+  max-width: 240px;
+  font-size: 1.15rem;
+  background: linear-gradient(90deg, #db0000, #ad0000);
+  padding: 14px 36px;
+  border-radius: 12px;
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(150,0,0,0.09);
+  transition: background 0.2s, transform 0.2s;
+}

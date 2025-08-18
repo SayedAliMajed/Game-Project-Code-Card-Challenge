@@ -54,38 +54,25 @@
 </div>
 
 <!-- Monte Game Screen -->
-<div id="monteScreen" style="display: none;">
-  <div id="messageBoard"><h4 id="messages">Watch the <span>Queen of Hearts</span></h4></div>
-  <div id="mainSection">
-    <div id="cardTable">
-      <div class="wholeCard">
-        <div class="cardFrontWrapper" id="card1Wrapper">
-          <img class="playingCard" id="card1" src="images/jackClubs.png">
-        </div>
-        <div class="cardBackWrapper" id="back1">
-          <img class="cardBack" id="cardBack1" src="images/cardBack.png">
-        </div>
-      </div>
-      <div class="wholeCard">
-        <div class="cardFrontWrapper" id="card2Wrapper">
-          <img class="playingCard" id="card2" src="images/queenHearts.png">
-        </div>
-        <div class="cardBackWrapper" id="back2">
-          <img class="cardBack" id="cardBack2" src="images/cardBack.png">
-        </div>
-      </div>
-      <div class="wholeCard">
-        <div class="cardFrontWrapper" id="card3Wrapper">
-          <img class="playingCard" id="card3" src="images/jackSpades.png">
-        </div>
-        <div class="cardBackWrapper" id="back3">
-          <img class="cardBack" id="cardBack3" src="images/cardBack.png">
-        </div>
-      </div>
+<div id="monteScreen" style="display: none; padding: 20px; text-align: center;">
+  <h3>Watch the Queen of Hearts</h3>
+  <div id="cardTable">
+    <div class="wholeCard" id="card1Wrapper">
+      <img class="cardFront" src="images/jackClubs.png" alt="Jack Clubs" />
+      <img class="cardBack" src="images/cardBack.png" alt="Card Back" />
     </div>
-    <div class="shuffle">
-      <button type="button" id="shuffleBtn">Shuffle</button>
-  </div>     
+    <div class="wholeCard" id="card2Wrapper">
+      <img class="cardFront" src="images/queenHearts.png" alt="Queen Hearts" />
+      <img class="cardBack" src="images/cardBack.png" alt="Card Back" />
+    </div>
+    <div class="wholeCard" id="card3Wrapper">
+      <img class="cardFront" src="images/jackSpades.png" alt="Jack Spades" />
+      <img class="cardBack" src="images/cardBack.png" alt="Card Back" />
+    </div>
+  </div>
+  <button id="shuffleBtn">Shuffle</button>
+</div>
+
 </div>
 
 <!-- Quiz Screen-->

@@ -20,7 +20,12 @@ const playNowBtn = document.getElementById('playNow');
 const shuffleBtn = document.getElementById('shuffleBtn');
 
 const topicRadios = document.querySelectorAll('input[name="quizTopic"]');
+
 const wholeCard = document.querySelectorAll('.wholeCard');
+const cardTable = document.getElementById('cardTable');
+const cardWrappers = ['card1Wrapper', 'card2Wrapper', 'card3Wrapper'];
+const positions = [0, 160, 320];  // left px positions for cards
+
 
 /*------------------------------------- Variables (state) ---------------------------------*/
 
@@ -38,6 +43,9 @@ let shuffleSpeed = 200;
 let elapsed = 0;
 playNowBtn.disabled = true;
 
+
+let currentOrder = [...cardWrappers];
+
 /*---------------------------------- Cached Element References  ---------------------------*/
 
 
@@ -52,50 +60,127 @@ topicRadios.forEach(radio => {
   });
 });
 
-/*function startMonteRound() {
-  console.log("startMonteRound called - implement game logic here.");
-}*/
-
 // shuffle cards
 
-function shuffle(cards) {
-  let currentIndex = cards.length, randomIndex;
+function shuffle(array) {
+  let currentIndex = array.length, randomIndex;
   while (currentIndex !== 0) {
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
-    [cards[currentIndex], cards[randomIndex]] =
-      [cards[randomIndex], cards[currentIndex]];
+    [array[currentIndex], array[randomIndex]] =
+      [array[randomIndex], array[currentIndex]];
   }
-  return cards;
+  return array;
 }
 
-function flipCardsBack() {
-  // Add 'flipped' class to flip cards back
- wholeCard.forEach(card => {
-    card.classList.add('flipped');
+function positionCards(order) {
+  order.forEach((id, i) => {
+    const card = document.getElementById(id);
+    card.style.left = positions[i] + 'px';
+  });
+}
+
+function flipAllCardsBack() {
+  currentOrder.forEach(id => {
+    document.getElementById(id).classList.add('flipped');
+  });
+}
+
+function flipCardFaceUp(id) {
+  document.getElementById(id).classList.remove('flipped');
+}
+
+function enableGuessing() {
+  currentOrder.forEach(id => {
+    document.getElementById(id).onclick = () => {
+      flipCardFaceUp(id);
+      checkGuess(id);
+    };
+  });
+}
+
+function disableGuessing() {
+  currentOrder.forEach(id => {
+    document.getElementById(id).onclick = null;
+  });
+}
+
+function checkGuess(id) {
+  if (id === 'card2Wrapper') {
+    alert('Correct! You found the Queen of Hearts!');
+    // I will add points, advance stage, etc.
+  } else {
+    alert('Wrong card. Please try again.');
+  }
+}
+
+function animateShuffle(times = 5, delay = 400) {
+  if (times === 0) {
+    enableGuessing();
+    return;
+  }
+  setTimeout(() => {
+    currentOrder = shuffle([...currentOrder]);
+    positionCards(currentOrder);
+    animateShuffle(times - 1, delay);
+  }, delay);
+}
+
+function startMonteRound() {
+  disableGuessing();
+
+
+  currentOrder.forEach(id => {
+    document.getElementById(id).classList.remove('flipped');
+  });
+  positionCards(currentOrder);
+
+  // After 3 seconds, flip cards back and shuffle
+  setTimeout(() => {
+    flipAllCardsBack();
+
+    setTimeout(() => {
+      animateShuffle();
+    }, 700); // wait for flip animation to complete
+  }, 3000); // memorization duration
+}
+function resetCardsFaceUp() {
+  currentOrder.forEach(id => {
+    let card = document.getElementById(id);
+    card.classList.remove('flipped');
   });
 }
 
 
 /*------------------------------------ Event Listener -------------------------------------*/
+
+// Enable play button when a quiz topic is selected
+topicRadios.forEach(radio => {
+  radio.addEventListener('change', () => {
+    playNowBtn.disabled = false;
+  });
+});
+
+// Start game: show monte screen and start round
 playNowBtn.addEventListener('click', () => {
-  const selectedTopic = document.querySelector('input[name="quizTopic"]:checked');
-  if (selectedTopic) {
-    gameState.topic = selectedTopic.value;
-  }
-  gameState.score = 0;
-  gameState.stage = 1;
- 
   showScreen('monteScreen');
-  startMonteRound();
-
+  positionCards(currentOrder);
+  currentOrder.forEach(id => {
+    document.getElementById(id).classList.remove('flipped');  // cards face up
+  });
+  disableGuessing();  // disable clicking until shuffle
 });
 
+// Shuffle button to repeat shuffling process inside monte screen
 shuffleBtn.addEventListener('click', () => {
-  
+  startMonteRound();  // flips cards back, shuffle animation, enable guessing
 });
-
-document.getElementById('shuffleBtn').addEventListener('click', function() {
-  flipCardsBack();               // All cards face off
-
-});
+// Initial setup when page loads
+window.onload = () => {
+  showScreen('introScreen');
+  positionCards(currentOrder);
+  currentOrder.forEach(id => {
+    document.getElementById(id).classList.remove('flipped');
+  });
+  disableGuessing();
+};
