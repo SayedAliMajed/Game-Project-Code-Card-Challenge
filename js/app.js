@@ -31,7 +31,11 @@ let gameState = {
   pointsToWin:12
 };
 
-
+let playingCard = ['card1','card2','card3'];
+let shuffleDuration = 3000;
+let shuffleSpeed = 200;
+let elapsed = 0;
+playNowBtn.disabled = true;
 
 /*---------------------------------- Cached Element References  ---------------------------*/
 
@@ -40,7 +44,7 @@ let gameState = {
 
 
 /*----------------------------------- Functions -------------------------------------------*/
-playNowBtn.disabled = true;
+
 topicRadios.forEach(radio => {
   radio.addEventListener('change', () => {
     playNowBtn.disabled = false;
@@ -49,6 +53,26 @@ topicRadios.forEach(radio => {
 
 function startMonteRound() {
   console.log("startMonteRound called - implement game logic here.");
+}
+
+// shuffle cards
+
+function shuffle(cards) {
+  let currentIndex = cards.length, randomIndex;
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    [cards[currentIndex], cards[randomIndex]] =
+      [cards[randomIndex], cards[currentIndex]];
+  }
+  return cards;
+}
+
+function flipCardsBack() {
+  playingCard.forEach((id, index) => {
+    document.getElementById(`card${index+1}Wrapper`).style.display = 'none';
+    document.getElementById(`back${index+1}`).style.display = 'block';
+  });
 }
 
 
@@ -67,6 +91,10 @@ playNowBtn.addEventListener('click', () => {
 });
 
 shuffleBtn.addEventListener('click', () => {
-  console.log('Shuffle started');
+  
 });
 
+document.getElementById('shuffleBtn').addEventListener('click', function() {
+  flipCardsBack();               // All cards face off
+
+});
