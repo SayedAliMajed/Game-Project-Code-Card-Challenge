@@ -20,6 +20,7 @@ const playNowBtn = document.getElementById('playNow');
 const shuffleBtn = document.getElementById('shuffleBtn');
 
 const topicRadios = document.querySelectorAll('input[name="quizTopic"]');
+const wholeCard = document.querySelectorAll('.wholeCard');
 
 /*------------------------------------- Variables (state) ---------------------------------*/
 
@@ -51,9 +52,9 @@ topicRadios.forEach(radio => {
   });
 });
 
-function startMonteRound() {
+/*function startMonteRound() {
   console.log("startMonteRound called - implement game logic here.");
-}
+}*/
 
 // shuffle cards
 
@@ -69,9 +70,9 @@ function shuffle(cards) {
 }
 
 function flipCardsBack() {
-  playingCard.forEach((id, index) => {
-    document.getElementById(`card${index+1}Wrapper`).style.display = 'none';
-    document.getElementById(`back${index+1}`).style.display = 'block';
+  // Add 'flipped' class to flip cards back
+ wholeCard.forEach(card => {
+    card.classList.add('flipped');
   });
 }
 
