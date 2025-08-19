@@ -14,7 +14,6 @@
   <img id="logo" src="images/FinalLogo.png" alt="Code Card Challenge Logo">
   <div class="header-text">
     <h1>Code Card Challenge Game</h1>
-    <h2>Objective of the Game</h2>
     <div id="hud">
       <span>Stage: <span id="stageDisplay">1</span></span>
       <span>Points: <span id="scoreDisplay">0</span></span>
@@ -37,7 +36,7 @@
       </div>
     </div>
   <div class="intro-right" id="gameInstructions">
-   <h3>How to Play</h3> 
+   <h3>How to Play: Quiz & Three-Card Monte Challenge</h3> 
    <ol>
         <li>Pick your quiz topic above (JavaScript, CSS, or HTML).</li>
         <li>Each stage starts with a <strong>Three-Card Monte</strong> game — find the Queen of Hearts.</li>
@@ -56,6 +55,7 @@
 <!-- Monte Game Screen -->
 <div id="monteScreen" style="display: none; padding: 20px; text-align: center;">
   <h3>Watch the Queen of Hearts</h3>
+  <div id ="gameMessage" class="game-message"></div>
   <div id="cardTable">
     <div class="wholeCard" id="card1Wrapper">
       <img class="cardFront" src="images/jackClubs.png" alt="Jack Clubs" />

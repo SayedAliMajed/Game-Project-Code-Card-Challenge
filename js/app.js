@@ -25,6 +25,7 @@ const wholeCard = document.querySelectorAll('.wholeCard');
 const cardTable = document.getElementById('cardTable');
 const cardWrappers = ['card1Wrapper', 'card2Wrapper', 'card3Wrapper'];
 const positions = [0, 160, 320];  // left px positions for cards
+const messageEl = document.getElementById('gameMessage');
 
 
 /*------------------------------------- Variables (state) ---------------------------------*/
@@ -45,6 +46,8 @@ playNowBtn.disabled = true;
 
 
 let currentOrder = [...cardWrappers];
+let winningCard = null;
+
 
 /*---------------------------------- Cached Element References  ---------------------------*/
 
@@ -106,13 +109,20 @@ function disableGuessing() {
 }
 
 function checkGuess(id) {
-  if (id === 'card2Wrapper') {
-    alert('Correct! You found the Queen of Hearts!');
-    // I will add points, advance stage, etc.
+  if (id === winningCard) {
+    messageEl.textContent= '✅Correct! You found the Queen of Hearts! + 2 Points';
+    gameState.score+= 2;
   } else {
-    alert('Wrong card. Please try again.');
+    messageEl.textContent = '❌ Wrong card. No points this round.';
   }
+  disableGuessing();
+
+  // move to quiz after a short delay
+  setTimeout(() => {
+    startQuizQuestion();
+  }, 1500);
 }
+
 
 function animateShuffle(times = 5, delay = 400) {
   if (times === 0) {
@@ -142,7 +152,7 @@ function startMonteRound() {
     setTimeout(() => {
       animateShuffle();
     }, 700); // wait for flip animation to complete
-  }, 3000); // memorization duration
+  }, 5000); // memorization duration
 }
 function resetCardsFaceUp() {
   currentOrder.forEach(id => {
@@ -174,6 +184,7 @@ playNowBtn.addEventListener('click', () => {
 // Shuffle button to repeat shuffling process inside monte screen
 shuffleBtn.addEventListener('click', () => {
   startMonteRound();  // flips cards back, shuffle animation, enable guessing
+  disableGuessing();
 });
 // Initial setup when page loads
 window.onload = () => {

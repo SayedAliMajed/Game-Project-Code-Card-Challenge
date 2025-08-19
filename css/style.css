@@ -20,10 +20,10 @@ html, body {
 
 /* Main Header Styling */
 #mainHeader {
-  position: relative;
+  /*position: relative;*/
   background: linear-gradient(90deg, #314770 0%, #7fa4ec 100%);
   color:#fff;
-  padding: 20px 0 20px 0;
+  padding: 10px 0 10px 0;
   border-bottom-left-radius: 16px;
   border-bottom-right-radius: 16px;
   font-family: 'Libre Baskerville', serif;
@@ -47,15 +47,6 @@ html, body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
-
-.header-text h2 {
-  font-size: 1.25rem;
-  font-weight: 400;
-  margin-top: 8px;
-  color: #e0ecff;
-  letter-spacing: 0.4px;
-
 }
 
 #hud {
@@ -212,4 +203,11 @@ html, body {
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(150,0,0,0.09);
   transition: background 0.2s, transform 0.2s;
+}
+.game-message {
+  margin-top: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
 }
