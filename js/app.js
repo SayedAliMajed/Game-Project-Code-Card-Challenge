@@ -1,5 +1,5 @@
 
-//const questions = require('./data.js');
+
 
 function showScreen(screenId) {
   const screens = ['introScreen', 'monteScreen','quizScreen'];
@@ -12,7 +12,7 @@ function showScreen(screenId) {
 }
 
 // Show Intro screen on page load
-showScreen('quizScreen');
+showScreen('introScreen');
 
 /*--------------------------------------- Constants --------------------------------------*/
 const intro = document.getElementById('introScreen');
@@ -31,27 +31,10 @@ const positions = [0, 160, 320];  // left px positions for cards
 const messageEl = document.getElementById('gameMessage');
 
 const questionEl = document.getElementById('question');
-const AnswerBtn = document.getElementById('answer-buttons');
+const answerButtons = document.getElementById('answer-buttons');
 const nextBtn = document.getElementById('nextBtn');
 
-const questions = [
-{
-    question:'Which keyword is used to declare a variable in JavaScript that cannot be reassigned?',
-answers: [
- {text: 'Var', correct:false},
- {text: 'let', correct:false},
- {text: 'const', correct:true},
- ]
-},
-{
-question:'What is the purpose of the addEventListener() method in JavaScript?',
-answers: [
- {text: 'To create a new HTML element.', correct:false},
- {text: 'To attach an event handler to a specified element.', correct:true},
- {text: 'To remove an HTML element from the DOM.', correct:false},
- ]
-}
-]
+
 
 
 /*------------------------------------- Variables (state) ---------------------------------*/
@@ -72,6 +55,7 @@ playNowBtn.disabled = true;
 
 
 let currentOrder = [...cardWrappers];
+let queenCard = 'card2Wrapper';
 let winningCard = null;
 
 let currentQuestionIndex = 0;
@@ -122,6 +106,11 @@ function flipCardFaceUp(id) {
   document.getElementById(id).classList.remove('flipped');
 }
 
+function updateWinningCard() {
+  winningCard = currentOrder.find(id => id === queenCard);
+}
+
+
 function enableGuessing() {
   currentOrder.forEach(id => {
     document.getElementById(id).onclick = () => {
@@ -138,6 +127,7 @@ function disableGuessing() {
 }
 
 function checkGuess(id) {
+ 
   if (id === winningCard) {
     messageEl.textContent= '✅Correct! You found the Queen of Hearts! + 2 Points';
     gameState.score+= 2;
@@ -148,13 +138,14 @@ function checkGuess(id) {
 
   // move to quiz after a short delay
   setTimeout(() => {
-    startQuizQuestion();
-  }, 1500);
+    startQuiz();
+  }, 4000);
 }
 
 
 function animateShuffle(times = 5, delay = 400) {
   if (times === 0) {
+    updateWinningCard();
     enableGuessing();
     return;
   }
@@ -189,35 +180,60 @@ function resetCardsFaceUp() {
     card.classList.remove('flipped');
   });
 }
+// Quiz Screen
 
 function startQuiz() {
+  showScreen('quizScreen'); 
   currentQuestionIndex = 0;
-  score = 0;
   nextBtn.innerHTML = "Next";
   showQuestion();
 }
 
+
 function showQuestion() {
   resetState();
-  let currentQuestion = questions[currentQuestionIndex];
+  let currentQuestion = quizBank[currentQuestionIndex];
   let questionNo = currentQuestionIndex + 1;
-  questionEl.innerHTML = questionNo +". "+ currentQuestion.question;
-
+  questionEl.innerHTML = questionNo + ". " + currentQuestion.question;
+  
   currentQuestion.answers.forEach(answer => {
     const button = document.createElement('button');
     button.innerHTML = answer.text;
     button.classList.add('btn');
-    AnswerBtn.appendChild(button);
+    answerButtons.appendChild(button);
+    if (answer.correct) {
+      button.dataset.correct = answer.correct;
+    }
+    button.addEventListener("click", selectAnswer);
   });
 
 }
 
 function resetState() {
   nextBtn.style.display = 'none';
-  while(AnswerBtn.firstChild) {
-    AnswerBtn.removeChild(AnswerBtn.firstChild);
+  while(answerButtons.firstChild) {
+    answerButtons.removeChild(answerButtons.firstChild);
   }
 }
+
+function selectAnswer(e) {
+  const selectedBtn = e.target;
+  const isCorrect = selectedBtn.dataset.correct === 'true';
+  if(isCorrect){
+    selectedBtn.classList.add('correct');
+    gameState.score+= 2;
+  }else{
+    selectedBtn.classList.add('incorrect');
+  }
+  Array.from(answerButtons.children).forEach(button => {
+    if(button.dataset.correct === 'true') {
+      button.classList.add('correct');
+    }
+    button.disabled = true;
+  });
+  nextBtn.style.display = 'block';
+}
+
 startQuiz(); 
 
 /*------------------------------------ Event Listener -------------------------------------*/
@@ -229,10 +245,9 @@ topicRadios.forEach(radio => {
   });
 });
 
-
 // Start game: show monte screen and start round
 playNowBtn.addEventListener('click', () => {
-  showScreen('monteScreen');
+  showScreen('monteScreen'); 
   positionCards(currentOrder);
   currentOrder.forEach(id => {
     document.getElementById(id).classList.remove('flipped');  // cards face up
@@ -245,9 +260,10 @@ shuffleBtn.addEventListener('click', () => {
   startMonteRound();  // flips cards back, shuffle animation, enable guessing
   disableGuessing();
 });
+
 // Initial setup when page loads
 window.onload = () => {
-  showScreen('quizScreen');
+  showScreen('introScreen'); // change screen display
   positionCards(currentOrder);
   currentOrder.forEach(id => {
     document.getElementById(id).classList.remove('flipped');
