@@ -1,5 +1,6 @@
 
 
+/* -------------------------------------Screen Management -----------------------------*/
 
 function showScreen(screenId) {
   const screens = ['introScreen', 'monteScreen','quizScreen','resultScreen'];
@@ -15,26 +16,9 @@ function showScreen(screenId) {
 showScreen('introScreen');
 
 /*--------------------------------------- Constants --------------------------------------*/
-const intro = document.getElementById('introScreen');
-const monte = document.getElementById('monteScreen');
-const quiz = document.getElementById('quizScreen');
 
-const playNowBtn = document.getElementById('playNow');
-const shuffleBtn = document.getElementById('shuffleBtn');
-
-const topicRadios = document.querySelectorAll('input[name="quizTopic"]');
-
-const wholeCard = document.querySelectorAll('.wholeCard');
-const cardTable = document.getElementById('cardTable');
 const cardWrappers = ['card1Wrapper', 'card2Wrapper', 'card3Wrapper'];
-const positions = [0, 160, 320];  // left px positions for cards
-const messageEl = document.getElementById('gameMessage');
-
-const questionEl = document.getElementById('question');
-const answerButtons = document.getElementById('answer-buttons');
-const nextBtn = document.getElementById('nextBtn');
-
-
+const positions = [0, 160, 320];  // Card left positions in pixels
 
 
 /*------------------------------------- Variables (state) ---------------------------------*/
@@ -47,102 +31,130 @@ let gameState = {
   pointsToWin:12
 };
 
-let playingCard = ['card1','card2','card3'];
-let shuffleDuration = 3000;
-let shuffleSpeed = 200;
-let elapsed = 0;
-playNowBtn.disabled = true;
-
+let isMonteTurn = true;
 
 let currentOrder = [...cardWrappers];
 let queenCard = 'card2Wrapper';
 let winningCard = null;
 
+let currentTopic = null;
+let currentQuestionSet = [];
 let currentQuestionIndex = 0;
 
 
 
 /*---------------------------------- Cached Element References  ---------------------------*/
 
+const intro = document.getElementById('introScreen');
+const monte = document.getElementById('monteScreen');
+const quiz = document.getElementById('quizScreen');
+const results = document.getElementById('resultsScreen');
 
+const playNowBtn = document.getElementById('playNow');
+const shuffleBtn = document.getElementById('shuffleBtn');
+const nextBtn = document.getElementById('nextBtn');
+
+const topicRadios = document.querySelectorAll('input[name="quizTopic"]');
+
+const messageEl = document.getElementById('gameMessage');
+const questionEl = document.getElementById('question');
+const answerButtons = document.getElementById('answer-buttons');
 
 
 
 /*----------------------------------- Functions -------------------------------------------*/
 
-topicRadios.forEach(radio => {
-  radio.addEventListener('change', () => {
-    playNowBtn.disabled = false;
+// Show the active screen and hide others
+function showScreen(screenId) {
+  const screens = ['introScreen', 'monteScreen', 'quizScreen', 'resultsScreen'];
+  screens.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.style.display = (id === screenId) ? 'block' : 'none';
+    }
   });
-});
+}
 
-// shuffle cards
-
+// Shuffle an array (Fisher-Yates)
 function shuffle(array) {
   let currentIndex = array.length, randomIndex;
   while (currentIndex !== 0) {
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
-    [array[currentIndex], array[randomIndex]] =
-      [array[randomIndex], array[currentIndex]];
+    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
   }
   return array;
 }
 
+// Position cards by given order
 function positionCards(order) {
   order.forEach((id, i) => {
     const card = document.getElementById(id);
-    card.style.left = positions[i] + 'px';
+    if (card) card.style.left = positions[i] + 'px';
   });
 }
 
+// Flip all cards face down (back side)
 function flipAllCardsBack() {
   currentOrder.forEach(id => {
-    document.getElementById(id).classList.add('flipped');
+    const card = document.getElementById(id);
+    if (card) card.classList.add('flipped');
   });
 }
 
+// Flip specific card face up (show)
 function flipCardFaceUp(id) {
-  document.getElementById(id).classList.remove('flipped');
+  const card = document.getElementById(id);
+  if (card) card.classList.remove('flipped');
 }
 
+// Update winningCard by finding where the queenCard is in currentOrder after shuffle
 function updateWinningCard() {
   winningCard = currentOrder.find(id => id === queenCard);
 }
 
-
+// Enable clicking on cards for guessing
 function enableGuessing() {
   currentOrder.forEach(id => {
-    document.getElementById(id).onclick = () => {
-      flipCardFaceUp(id);
-      checkGuess(id);
-    };
+    const card = document.getElementById(id);
+    if (card) {
+      card.onclick = () => {
+        flipCardFaceUp(id);
+        checkGuess(id);
+      };
+    }
   });
 }
 
+// Disable clicking on cards
 function disableGuessing() {
   currentOrder.forEach(id => {
-    document.getElementById(id).onclick = null;
+    const card = document.getElementById(id);
+    if (card) {
+      card.onclick = null;
+    }
   });
 }
 
+// Check user’s guess and display result
+
 function checkGuess(id) {
- 
   if (id === winningCard) {
-    messageEl.textContent= '✅Correct! You found the Queen of Hearts! + 2 Points';
-    gameState.score+= 2;
+    messageEl.textContent = '✅ Correct! You found the Queen of Hearts! +2 Points';
+    gameState.score += 2;
   } else {
     messageEl.textContent = '❌ Wrong card. No points this round.';
   }
   disableGuessing();
 
-  // move to quiz after a short delay
+  isMonteTurn = false; 
+
   setTimeout(() => {
-    startQuiz();
-  }, 4000);
+    nextRound();
+  }, 2500);
 }
 
-
+// Animate shuffling recursively
 function animateShuffle(times = 5, delay = 400) {
   if (times === 0) {
     updateWinningCard();
@@ -156,46 +168,67 @@ function animateShuffle(times = 5, delay = 400) {
   }, delay);
 }
 
+// Start a Monte round
 function startMonteRound() {
+  messageEl.textContent = '';
   disableGuessing();
 
-
   currentOrder.forEach(id => {
-    document.getElementById(id).classList.remove('flipped');
+    const card = document.getElementById(id);
+    if (card) card.classList.remove('flipped'); // Face up
   });
   positionCards(currentOrder);
 
-  // After 3 seconds, flip cards back and shuffle
+  // Memorization period then flip back and shuffle
   setTimeout(() => {
     flipAllCardsBack();
 
     setTimeout(() => {
       animateShuffle();
-    }, 700); // wait for flip animation to complete
-  }, 5000); // memorization duration
+    }, 700);
+  }, 3500); // Memorization duration
 }
-function resetCardsFaceUp() {
-  currentOrder.forEach(id => {
-    let card = document.getElementById(id);
-    card.classList.remove('flipped');
-  });
-}
-// Quiz Screen
 
-function startQuiz() {
-  showScreen('quizScreen'); 
+// Filter questions by selected topic
+function filterQuestionsByTopic(selectedTopic) {
+  return quizBank.filter(q => q.topic === selectedTopic);
+}
+
+// Shuffle questions array
+function shuffleQuestions(questionArray) {
+  return shuffle(questionArray);
+}
+
+// Called when player selects topic, load filtered and shuffled quiz questions
+function onTopicSelected(topic) {
+  currentTopic = topic;
+  currentQuestionSet = shuffleQuestions(filterQuestionsByTopic(topic));
   currentQuestionIndex = 0;
   nextBtn.innerHTML = "Next";
   showQuestion();
 }
 
+// Reset quiz state UI
+function resetState() {
+  nextBtn.style.display = 'none';
+  while (answerButtons.firstChild) {
+    answerButtons.removeChild(answerButtons.firstChild);
+  }
+  messageEl.textContent = '';
+}
 
+// Show current quiz question and answer buttons
 function showQuestion() {
   resetState();
-  let currentQuestion = quizBank[currentQuestionIndex];
-  let questionNo = currentQuestionIndex + 1;
-  questionEl.innerHTML = questionNo + ". " + currentQuestion.question;
-  
+
+  if (currentQuestionIndex >= currentQuestionSet.length) {
+    nextRound(); // Quiz finished, proceed
+    return;
+  }
+
+  const currentQuestion = currentQuestionSet[currentQuestionIndex];
+  questionEl.innerHTML = `<strong>Q${currentQuestionIndex + 1}:</strong> ${currentQuestion.question}`;
+
   currentQuestion.answers.forEach(answer => {
     const button = document.createElement('button');
     button.innerHTML = answer.text;
@@ -206,27 +239,20 @@ function showQuestion() {
     }
     button.addEventListener("click", selectAnswer);
   });
-
 }
 
-function resetState() {
-  nextBtn.style.display = 'none';
-  while(answerButtons.firstChild) {
-    answerButtons.removeChild(answerButtons.firstChild);
-  }
-}
-
+// Handle answer selection
 function selectAnswer(e) {
   const selectedBtn = e.target;
   const isCorrect = selectedBtn.dataset.correct === 'true';
-  if(isCorrect){
+  if (isCorrect) {
     selectedBtn.classList.add('correct');
-    gameState.score+= 2;
-  }else{
+    gameState.score += 2;
+  } else {
     selectedBtn.classList.add('incorrect');
   }
   Array.from(answerButtons.children).forEach(button => {
-    if(button.dataset.correct === 'true') {
+    if (button.dataset.correct === 'true') {
       button.classList.add('correct');
     }
     button.disabled = true;
@@ -234,62 +260,112 @@ function selectAnswer(e) {
   nextBtn.style.display = 'block';
 }
 
-startQuiz(); 
+// Advance to next quiz question
+function quizNextQuestion() {
+  currentQuestionIndex++;
+  showQuestion();
+}
+
+// Start quiz round (called in nextRound)
+function startQuizRound() {
+  if (!currentTopic) {
+    messageEl.textContent = "Please select a topic before starting the quiz.";
+    showScreen('introScreen');
+    return;
+  }
+  currentQuestionIndex = 0;
+  showQuestion();
+}
+
+// Display the final results screen
+function displayResults() {
+  // Clear quiz UI
+  questionEl.innerHTML = "";
+  answerButtons.innerHTML = "";
+  messageEl.textContent = `Game Over! Your total score is ${gameState.score} points.`;
+  nextBtn.style.display = 'none';
+  showScreen('resultsScreen');
+}
+
+// Control game rounds and screen switching
+function nextRound() {
+  if (gameState.stage > gameState.totalStages) {
+    displayResults();
+    return;
+  }
+
+  if (isMonteTurn) {
+    showScreen('monteScreen');
+    positionCards(currentOrder);
+    currentOrder.forEach(id => {
+      const card = document.getElementById(id);
+      if (card) card.classList.remove('flipped');
+    });
+    disableGuessing();
+
+    
+  } else {
+    showScreen('quizScreen');
+    if (!currentQuestionSet.length) {
+      currentQuestionSet = shuffleQuestions(filterQuestionsByTopic(currentTopic));
+    }
+    startQuizRound();
+    isMonteTurn = true;  
+    gameState.stage++;
+  }
+}
 
 /*------------------------------------ Event Listener -------------------------------------*/
 
-// Enable play button when a quiz topic is selected
 topicRadios.forEach(radio => {
   radio.addEventListener('change', () => {
     playNowBtn.disabled = false;
+    onTopicSelected(radio.value);
   });
 });
 
-function filterQuestionsByTopic(selectedTopic) {
-  return quizBank.filter(q => q.topic === selectedTopic);
-}
-
-
-// Start game: show monte screen and start round
 playNowBtn.addEventListener('click', () => {
-  showScreen('monteScreen'); 
+  gameState.stage = 1;
+  isMonteTurn = true;
+  showScreen('monteScreen');
   positionCards(currentOrder);
   currentOrder.forEach(id => {
-    document.getElementById(id).classList.remove('flipped');  // cards face up
+    const card = document.getElementById(id);
+    if (card) card.classList.remove('flipped');
   });
-  disableGuessing();  // disable clicking until shuffle
+  disableGuessing();
+
 });
 
-// Shuffle button to repeat shuffling process inside monte screen
+
 shuffleBtn.addEventListener('click', () => {
-  startMonteRound();  // flips cards back, shuffle animation, enable guessing
+  messageEl.textContent = "";  
+  startMonteRound();
   disableGuessing();
 });
 
-// Initial setup when page loads
+nextBtn.addEventListener('click', () => {
+  if (!isMonteTurn) {
+    quizNextQuestion();
+  } else {
+    nextRound();
+  }
+});
+
+/* ------------------------------------Initial Setup on Page Load -------------------------------*/
+
 window.onload = () => {
-  showScreen('introScreen'); // change screen display
+  showScreen('introScreen');
   positionCards(currentOrder);
   currentOrder.forEach(id => {
-    document.getElementById(id).classList.remove('flipped');
+    const card = document.getElementById(id);
+    if (card) card.classList.remove('flipped');
   });
   disableGuessing();
 };
 
-nextBtn.addEventListener('click', () => {
-  if(gameState.stage !== 5){
-    gameState.stage++;
-    messageEl.textContent = '';
 
-    showScreen('monteScreen'); 
-    positionCards(currentOrder);
-  currentOrder.forEach(id => {
-    document.getElementById(id).classList.remove('flipped');  // cards face up
-  });
-  disableGuessing();  // disable clicking until shuffle
 
-  } else {
-    showScreen('resultsScreen');
-  }
-  
-});
+
+
+

@@ -32,10 +32,10 @@ html, body {
 
 #logo {
   position:absolute;
-  top: 30px;
+  top: 0px;
   left: 20px;
-  width: 120px;
-  height: 120px;
+  width: 110px;
+  height: 110px;
   margin: 0 22px 0 0;
   border-radius: 8px;
   box-shadow: 0 3px 12px rgba(60, 80, 120, .10);
@@ -131,6 +131,15 @@ html, body {
 
 /* Monte Game Screen */
 
+#monteScreen {
+   max-width: 610px;
+  margin: 40px auto 28px;
+  background: #f8f9fc;
+  border-radius: 18px;
+  box-shadow: 0 3px 18px rgba(40,60,90,0.06);
+  padding-bottom: 36px;
+}
+
 #cardTable {
   position: relative;
   margin: 30px auto;
@@ -214,12 +223,12 @@ html, body {
 
 /* Guiz Game Screen */
 #quizScreen {
-  background: #519a8b;
-  width:90%;
-  max-width: 600px;
-  margin: 100px auto 0;
-  border-radius: 10px;
-  padding: 30px;
+  max-width: 610px;
+  margin: 40px auto 28px;
+  background: #f8f9fc;
+  border-radius: 18px;
+  box-shadow: 0 3px 18px rgba(40,60,90,0.06);
+  padding-bottom: 36px;
 }
 
 #quizScreen h1{

@@ -1,7 +1,7 @@
 window.quizBank= [
  
   {
-    topic: 'javascript',
+    topic: 'JS',
     question: 'Which keyword is used to declare a variable in JavaScript that cannot be reassigned?',
     answers: [
       { text: 'Var', correct: false },
@@ -10,7 +10,7 @@ window.quizBank= [
     ]
   },
   {
-    topic: 'javascript',
+    topic: 'JS',
     question: 'What is the purpose of the addEventListener() method in JavaScript?',
     answers: [
       { text: 'To create a new HTML element.', correct: false },
@@ -19,7 +19,7 @@ window.quizBank= [
     ]
   },
   {
-    topic: 'css',
+    topic: 'CSS',
     question: 'Which CSS property is used to change the text color?',
     answers: [
       { text: 'background-color', correct: false },
