@@ -2,7 +2,7 @@
 
 
 function showScreen(screenId) {
-  const screens = ['introScreen', 'monteScreen','quizScreen'];
+  const screens = ['introScreen', 'monteScreen','quizScreen','resultScreen'];
   screens.forEach(id => {
     const el = document.getElementById(id);
     if (el) {
@@ -245,6 +245,11 @@ topicRadios.forEach(radio => {
   });
 });
 
+function filterQuestionsByTopic(selectedTopic) {
+  return quizBank.filter(q => q.topic === selectedTopic);
+}
+
+
 // Start game: show monte screen and start round
 playNowBtn.addEventListener('click', () => {
   showScreen('monteScreen'); 
@@ -270,3 +275,21 @@ window.onload = () => {
   });
   disableGuessing();
 };
+
+nextBtn.addEventListener('click', () => {
+  if(gameState.stage !== 5){
+    gameState.stage++;
+    messageEl.textContent = '';
+
+    showScreen('monteScreen'); 
+    positionCards(currentOrder);
+  currentOrder.forEach(id => {
+    document.getElementById(id).classList.remove('flipped');  // cards face up
+  });
+  disableGuessing();  // disable clicking until shuffle
+
+  } else {
+    showScreen('resultsScreen');
+  }
+  
+});
