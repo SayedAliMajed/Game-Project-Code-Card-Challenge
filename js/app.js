@@ -2,8 +2,8 @@
 
 /* -------------------------------------Screen Management -----------------------------*/
 
-function showScreen(screenId) {
-  const screens = ['introScreen', 'monteScreen','quizScreen','resultScreen'];
+/*function showScreen(screenId) {
+  const screens = ['introScreen', 'monteScreen','quizScreen','resultsScreen'];
   screens.forEach(id => {
     const el = document.getElementById(id);
     if (el) {
@@ -13,7 +13,7 @@ function showScreen(screenId) {
 }
 
 // Show Intro screen on page load
-showScreen('introScreen');
+showScreen('introScreen');*/
 
 /*--------------------------------------- Constants --------------------------------------*/
 
@@ -56,13 +56,14 @@ const results = document.getElementById('resultsScreen');
 const playNowBtn = document.getElementById('playNow');
 const shuffleBtn = document.getElementById('shuffleBtn');
 const nextBtn = document.getElementById('nextBtn');
+const restartBtn = document.getElementById('restartBtn');
 
 const topicRadios = document.querySelectorAll('input[name="quizTopic"]');
 
-const messageEl = document.getElementById('gameMessage');
+const monteMessage = document.getElementById('gameMessage');
 const questionEl = document.getElementById('question');
 const answerButtons = document.getElementById('answer-buttons');
-const messageElement = document.getElementById('guizMessage');
+const quizMessage = document.getElementById('guizMessage');
 
 const stageDisplay = document.getElementById('stageDisplay');
 const scoreDisplay = document.getElementById('scoreDisplay')
@@ -147,11 +148,11 @@ function disableGuessing() {
 
 function checkGuess(id) {
   if (id === winningCard) {
-    messageEl.textContent = '✅ Correct! You found the Queen of Hearts! +2 Points';
+    monteMessage.textContent = '✅ Correct! You found the Queen of Hearts! +2 Points';
     gameProgress[gameState.stage - 1].monte += 2;
     gameState.score += 2;
   } else {
-    messageEl.textContent = '❌ Wrong card. No points this round.';
+    monteMessage.textContent = '❌ Wrong card. No points this round.';
   }
   updateHUD();
   disableGuessing();
@@ -180,7 +181,7 @@ function animateShuffle(times = 5, delay = 400) {
 
 // Start a Monte round
 function startMonteRound() {
-  messageEl.textContent = '';
+  monteMessage.textContent = '';
   disableGuessing();
 
   currentOrder.forEach(id => {
@@ -224,13 +225,13 @@ function resetState() {
   while (answerButtons.firstChild) {
     answerButtons.removeChild(answerButtons.firstChild);
   }
-  messageEl.textContent = '';
+  quizMessage.textContent = '';
 }
 
 // Show current quiz question and answer buttons
 function showQuestion() {
   resetState();
-  messageElement.textContent = '';
+  quizMessage.textContent = '';
 
   if (currentQuestionIndex >= currentQuestionSet.length) {
     nextRound(); // Quiz finished, proceed
@@ -260,10 +261,10 @@ function selectAnswer(e) {
     selectedBtn.classList.add('correct');
     gameProgress[gameState.stage - 1].quiz += 2;
     gameState.score += 2;
-    messageElement.textContent = '✅ Correct! Your answer is right! +2 Points';
+    quizMessage.textContent = '✅ Correct! Your answer is right! +2 Points';
   } else {
     selectedBtn.classList.add('incorrect');
-    messageElement.textContent = '❌ Wrong answer. No points this round.';
+    quizMessage.textContent = '❌ Wrong answer. No points this round.';
   }
   updateHUD();
   Array.from(answerButtons.children).forEach(button => {
@@ -284,7 +285,7 @@ function quizNextQuestion() {
 // Start quiz round (called in nextRound)
 function startQuizRound() {
   if (!currentTopic) {
-    messageEl.textContent = "Please select a topic before starting the quiz.";
+    quizMessage.textContent = "Please select a topic before starting the quiz.";
     showScreen('introScreen');
     return;
   }
@@ -297,7 +298,7 @@ function displayResults() {
   // Clear quiz UI
   questionEl.innerHTML = "";
   answerButtons.innerHTML = "";
-  messageEl.textContent = `Game Over! Your total score is ${gameState.score} points.`;
+  quizMessage.textContent = `Game Over! Your total score is ${gameState.score} points.`;
   nextBtn.style.display = 'none';
   showScreen('resultsScreen');
 }
@@ -306,7 +307,7 @@ function displayResults() {
 
   function nextRound() {
 
-    if (isMonteTurn) {
+  if (isMonteTurn) {
       gameState.stage++;
 
   if (gameState.stage > gameState.totalStages) {
@@ -338,7 +339,6 @@ function displayResults() {
 }
 
 
-
 // Results Screen & HUD Display
 
 function updateHUD() {
@@ -355,7 +355,7 @@ const feedbackText = document.getElementById('feedback-text');
 if (gameState.score >= gameState.pointsToWin) {
   feedbackText.textContent = "Well done ! You won the game !";
 } else {
-  feedbackText.textContent - "Keep trying! You can beat the game next time";
+  feedbackText.textContent = "Keep trying! You can beat the game next time";
 }
 
 let container = document.getElementById('resultsTableContainer');
@@ -388,14 +388,26 @@ for (let i = 0; i <gameProgress.length; i++) {
     <td>${montePts}</td>
     <td>${quizPts}</td>
     <td>${totalPts}</td>
-    <td>${Cumulativ}</td>
+    <td>${Cumulative}</td>
    
   </tr>`;
 }
 
-tableHTML += `
-<tr style="font-weight: bold;"`
+  tableHTML += `
+      <tr style="font-weight: bold;">
+        <td>Total</td>
+        <td>${gameProgress.reduce((sum, gp) => sum + gp.monte, 0)}</td>
+        <td>${gameProgress.reduce((sum, gp) => sum + gp.quiz, 0)}</td>
+        <td>${gameState.score}</td>
+        <td>-</td>
+      </tr>
+    </tbody>
+  </table>`;
 
+  container.innerHTML = tableHTML;
+  
+
+  showScreen('resultsScreen');
 
 
 /*------------------------------------ Event Listener -------------------------------------*/
@@ -409,6 +421,11 @@ topicRadios.forEach(radio => {
 
 playNowBtn.addEventListener('click', () => {
   gameState.stage = 1;
+  gameState.score = 0;
+  gameProgress= Array(gameState.totalStages)
+  .fill(null)
+  .map(() => ({monte: 0, quiz: 0}));
+
   isMonteTurn = true;
   showScreen('monteScreen');
   positionCards(currentOrder);
@@ -422,7 +439,7 @@ playNowBtn.addEventListener('click', () => {
 
 
 shuffleBtn.addEventListener('click', () => {
-  messageEl.textContent = "";  
+  monteMessage.textContent = "";  
   startMonteRound();
   disableGuessing();
 });
@@ -433,6 +450,26 @@ nextBtn.addEventListener('click', () => {
   } else {
     nextRound();
   }
+});
+
+restartBtn.addEventListener('click', () =>{
+  gameState.stage = 1;
+  gameState.score = 0;
+  gameProgress = Array(gameState.totalStages)
+  .fill(null)
+  .map(() => ({monte: 0, quiz: 0 }));
+
+  currentTopic = null;
+  currentQuestionSet =[];
+  currentQuestionIndex = 0;
+  isMonteTurn = true;
+
+  playNowBtn.disabled = true;
+  monteMessage.textContent = '';
+  quizMessage.textContent = '';
+
+  showScreen ('introScreen')
+
 });
 
 /* ------------------------------------Initial Setup on Page Load -------------------------------*/
