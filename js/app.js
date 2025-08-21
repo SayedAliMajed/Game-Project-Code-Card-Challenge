@@ -148,9 +148,9 @@ function disableGuessing() {
 
 function checkGuess(id) {
   if (id === winningCard) {
-    monteMessage.textContent = '✅ Correct! You found the Queen of Hearts! +2 Points';
     gameProgress[gameState.stage - 1].monte += 2;
     gameState.score += 2;
+    monteMessage.textContent = '✅ Correct! You found the Queen of Hearts! +2 Points';
   } else {
     monteMessage.textContent = '❌ Wrong card. No points this round.';
   }
@@ -234,7 +234,10 @@ function showQuestion() {
   quizMessage.textContent = '';
 
   if (currentQuestionIndex >= currentQuestionSet.length) {
-    nextRound(); // Quiz finished, proceed
+    // Quiz questions finished for this stage
+    // Move to next round (Monte), do NOT increment stage here
+    isMonteTurn = true;
+    nextRound();
     return;
   }
 
@@ -293,48 +296,36 @@ function startQuizRound() {
   showQuestion();
 }
 
-// Display the final results screen
-function displayResults() {
-  // Clear quiz UI
-  questionEl.innerHTML = "";
-  answerButtons.innerHTML = "";
-  quizMessage.textContent = `Game Over! Your total score is ${gameState.score} points.`;
-  nextBtn.style.display = 'none';
-  showScreen('resultsScreen');
-}
-
 // Control game rounds and screen switching
 
-  function nextRound() {
-
+function nextRound() {
   if (isMonteTurn) {
-      gameState.stage++;
+    // Increment stage at the start of each Monte round
+    gameState.stage++;
 
-  if (gameState.stage > gameState.totalStages) {
-    displayResults();
-    return;
-  }
-}
-  if (isMonteTurn) {
+    if (gameState.stage > gameState.totalStages) {
+      displayResults();
+      return;
+    }
+
     showScreen('monteScreen');
     positionCards(currentOrder);
     currentOrder.forEach(id => {
       const card = document.getElementById(id);
       if (card) card.classList.remove('flipped');
     });
-
     disableGuessing();
-    updateHUD();  
-    
+    updateHUD();
+
   } else {
     showScreen('quizScreen');
     if (!currentQuestionSet.length) {
       currentQuestionSet = shuffleQuestions(filterQuestionsByTopic(currentTopic));
+      currentQuestionIndex = 0;
     }
-
     startQuizRound();
     updateHUD();
-    isMonteTurn = true;
+    isMonteTurn = true;  // Next turn after quiz is Monte
   }
 }
 
@@ -347,51 +338,54 @@ function updateHUD() {
 }
 
 function displayResults() {
+  // Clear quiz area
+  questionEl.innerHTML = "";
+  answerButtons.innerHTML = "";
+  nextBtn.style.display = 'none';
+
+  // Update summary stats
   document.getElementById('final-score').textContent = gameState.score;
-  document.getElementById('total-questions').textContent = gameState.totalStages * 2;
-}
+  document.getElementById('total-questions').textContent = gameState.totalStages * 4;
 
-const feedbackText = document.getElementById('feedback-text');
-if (gameState.score >= gameState.pointsToWin) {
-  feedbackText.textContent = "Well done ! You won the game !";
-} else {
-  feedbackText.textContent = "Keep trying! You can beat the game next time";
-}
+  // Feedback
+  const feedbackText = document.getElementById('feedback-text');
+  if (gameState.score >= gameState.pointsToWin) {
+    feedbackText.textContent = "🎉 Well done! You won the game!";
+  } else {
+    feedbackText.textContent = "😅 Keep trying! You can beat the game next time.";
+  }
 
-let container = document.getElementById('resultsTableContainer');
+  // Results Table
+  let container = document.getElementById('resultsTableContainer');
+  let tableHTML = `<table border="1" cellpadding="8" cellspacing="0"
+  style="border-collapse: collapse; width: 100%;">
+    <thead>
+      <tr>
+        <th>Stage</th>
+        <th>Monte Points</th>
+        <th>Quiz Points</th>
+        <th>Total Points</th>
+        <th>Cumulative Score</th>
+      </tr>
+    </thead>
+    <tbody>`;
 
-let tableHTML = `<table border="1" cellpadding="8" cellspacing="0" 
-style="border-collapse: collapse; width: 100%;">
+  let cumulative = 0;
+  for (let i = 0; i < gameProgress.length; i++) {
+    let montePts = gameProgress[i].monte;
+    let quizPts  = gameProgress[i].quiz;
+    let totalPts = montePts + quizPts;
+    cumulative += totalPts;
 
-<thead>
-  <tr>
-  <th>Stage</th>
-  <th>Monte Points</th>
-  <th>Quiz Points</th>
-  <th>Total Points</th>
-  <th>Cumulative Score</th>
-  </tr>
-</thead>
-<tbody>`;
-
-let Cumulative = 0;
-for (let i = 0; i <gameProgress.length; i++) {
-  let stageNum = i + 1;
-  let montePts = gameProgress[i].monte;
-  let quizPts = gameProgress[i].quiz;
-  let totalPts = montePts + quizPts;
-  Cumulative += totalPts;
-
-  tableHTML += `
-  <tr>
-    <td>${stageNum}</td>
-    <td>${montePts}</td>
-    <td>${quizPts}</td>
-    <td>${totalPts}</td>
-    <td>${Cumulative}</td>
-   
-  </tr>`;
-}
+    tableHTML += `
+      <tr>
+        <td>${i + 1}</td>
+        <td>${montePts}</td>
+        <td>${quizPts}</td>
+        <td>${totalPts}</td>
+        <td>${cumulative}</td>
+      </tr>`;
+  }
 
   tableHTML += `
       <tr style="font-weight: bold;">
@@ -405,10 +399,10 @@ for (let i = 0; i <gameProgress.length; i++) {
   </table>`;
 
   container.innerHTML = tableHTML;
-  
 
+  // Finally, show results
   showScreen('resultsScreen');
-
+}
 
 /*------------------------------------ Event Listener -------------------------------------*/
 
