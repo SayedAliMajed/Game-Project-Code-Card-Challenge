@@ -346,6 +346,56 @@ function updateHUD() {
   scoreDisplay.textContent  = gameState.score;
 }
 
+function displayResults() {
+  document.getElementById('final-score').textContent = gameState.score;
+  document.getElementById('total-questions').textContent = gameState.totalStages * 2;
+}
+
+const feedbackText = document.getElementById('feedback-text');
+if (gameState.score >= gameState.pointsToWin) {
+  feedbackText.textContent = "Well done ! You won the game !";
+} else {
+  feedbackText.textContent - "Keep trying! You can beat the game next time";
+}
+
+let container = document.getElementById('resultsTableContainer');
+
+let tableHTML = `<table border="1" cellpadding="8" cellspacing="0" 
+style="border-collapse: collapse; width: 100%;">
+
+<thead>
+  <tr>
+  <th>Stage</th>
+  <th>Monte Points</th>
+  <th>Quiz Points</th>
+  <th>Total Points</th>
+  <th>Cumulative Score</th>
+  </tr>
+</thead>
+<tbody>`;
+
+let Cumulative = 0;
+for (let i = 0; i <gameProgress.length; i++) {
+  let stageNum = i + 1;
+  let montePts = gameProgress[i].monte;
+  let quizPts = gameProgress[i].quiz;
+  let totalPts = montePts + quizPts;
+  Cumulative += totalPts;
+
+  tableHTML += `
+  <tr>
+    <td>${stageNum}</td>
+    <td>${montePts}</td>
+    <td>${quizPts}</td>
+    <td>${totalPts}</td>
+    <td>${Cumulativ}</td>
+   
+  </tr>`;
+}
+
+tableHTML += `
+<tr style="font-weight: bold;"`
+
 
 
 /*------------------------------------ Event Listener -------------------------------------*/
