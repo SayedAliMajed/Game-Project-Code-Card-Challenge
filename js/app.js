@@ -41,6 +41,9 @@ let currentTopic = null;
 let currentQuestionSet = [];
 let currentQuestionIndex = 0;
 
+// Track Monte and Quiz points per stage
+let gameProgress = Array(gameState.totalStages).fill(null).map(() => ({ monte: 0, quiz: 0 }));
+
 
 
 /*---------------------------------- Cached Element References  ---------------------------*/
@@ -59,6 +62,7 @@ const topicRadios = document.querySelectorAll('input[name="quizTopic"]');
 const messageEl = document.getElementById('gameMessage');
 const questionEl = document.getElementById('question');
 const answerButtons = document.getElementById('answer-buttons');
+const messageElement = document.getElementById('guizMessage');
 
 
 
@@ -141,18 +145,21 @@ function disableGuessing() {
 function checkGuess(id) {
   if (id === winningCard) {
     messageEl.textContent = '✅ Correct! You found the Queen of Hearts! +2 Points';
+    gameProgress[gameState.stage - 1].monte += 2;
     gameState.score += 2;
   } else {
     messageEl.textContent = '❌ Wrong card. No points this round.';
   }
+  updateScoreStageDisplay();
   disableGuessing();
 
-  isMonteTurn = false; 
+  isMonteTurn = false;
 
   setTimeout(() => {
     nextRound();
   }, 2500);
 }
+
 
 // Animate shuffling recursively
 function animateShuffle(times = 5, delay = 400) {
@@ -247,10 +254,14 @@ function selectAnswer(e) {
   const isCorrect = selectedBtn.dataset.correct === 'true';
   if (isCorrect) {
     selectedBtn.classList.add('correct');
+    gameProgress[gameState.stage - 1].quiz += 2;
     gameState.score += 2;
+    messageElement.textContent = '✅ Correct! Your answer is right! +2 Points';
   } else {
     selectedBtn.classList.add('incorrect');
+    messageElement.textContent = '❌ Wrong answer. No points this round.';
   }
+  updateScoreStageDisplay();
   Array.from(answerButtons.children).forEach(button => {
     if (button.dataset.correct === 'true') {
       button.classList.add('correct');

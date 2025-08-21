@@ -79,6 +79,7 @@
 <!-- Quiz Screen-->
 <div id="quizScreen" style="display:none;">
    <h1> Quiz Game</h1>
+   <div id ="guizMessage" class="guiz-message"></div>
    <div class="quiz">
     <h2 id="question"> question goes here </h2>
     <div id="answer-buttons">
@@ -90,16 +91,22 @@
    </div>
    </div>
 </div>
+
 <!-- Result Screen -->
 <div class="results-container" id="resultsScreen" style="display:none;">
   <h1>Final Game Results</h1>
+  
   <div class="score-display" id="finalScoreDisplay">
     <p>Your Score: <span id="final-score">0</span> / <span id="total-questions">0</span></p>
   </div>
+  
   <div class="feedback-message">
      <p id="feedback-text">Well done!</p>
   </div>
-   <button id="restartBtn">Play Again</button>
+  
+  <div id="resultsTableContainer"></div>
+  
+  <button id="restartBtn">Play Again</button>
 </div>
 
 </div>
