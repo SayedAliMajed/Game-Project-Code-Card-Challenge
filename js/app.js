@@ -64,6 +64,9 @@ const questionEl = document.getElementById('question');
 const answerButtons = document.getElementById('answer-buttons');
 const messageElement = document.getElementById('guizMessage');
 
+const stageDisplay = document.getElementById('stageDisplay');
+const scoreDisplay = document.getElementById('scoreDisplay')
+
 
 
 /*----------------------------------- Functions -------------------------------------------*/
@@ -150,7 +153,7 @@ function checkGuess(id) {
   } else {
     messageEl.textContent = '❌ Wrong card. No points this round.';
   }
-  updateScoreStageDisplay();
+  updateHUD();
   disableGuessing();
 
   isMonteTurn = false;
@@ -227,6 +230,7 @@ function resetState() {
 // Show current quiz question and answer buttons
 function showQuestion() {
   resetState();
+  messageElement.textContent = '';
 
   if (currentQuestionIndex >= currentQuestionSet.length) {
     nextRound(); // Quiz finished, proceed
@@ -261,7 +265,7 @@ function selectAnswer(e) {
     selectedBtn.classList.add('incorrect');
     messageElement.textContent = '❌ Wrong answer. No points this round.';
   }
-  updateScoreStageDisplay();
+  updateHUD();
   Array.from(answerButtons.children).forEach(button => {
     if (button.dataset.correct === 'true') {
       button.classList.add('correct');
@@ -306,25 +310,38 @@ function nextRound() {
   }
 
   if (isMonteTurn) {
+    
+    if (gameState.stage !== 1) { 
+      gameState.stage++;
+    }
     showScreen('monteScreen');
     positionCards(currentOrder);
     currentOrder.forEach(id => {
       const card = document.getElementById(id);
       if (card) card.classList.remove('flipped');
     });
+    updateHUD();
     disableGuessing();
-
-    
   } else {
     showScreen('quizScreen');
     if (!currentQuestionSet.length) {
       currentQuestionSet = shuffleQuestions(filterQuestionsByTopic(currentTopic));
     }
     startQuizRound();
-    isMonteTurn = true;  
-    gameState.stage++;
+    updateHUD();
+    isMonteTurn = true;
   }
 }
+
+
+// Results Screen & HUD Display
+
+function updateHUD() {
+  stageDisplay.textContent = gameState.stage;
+  scoreDisplay.textContent  = gameState.score;
+}
+
+
 
 /*------------------------------------ Event Listener -------------------------------------*/
 
@@ -367,6 +384,7 @@ nextBtn.addEventListener('click', () => {
 
 window.onload = () => {
   showScreen('introScreen');
+  updateHUD();
   positionCards(currentOrder);
   currentOrder.forEach(id => {
     const card = document.getElementById(id);
