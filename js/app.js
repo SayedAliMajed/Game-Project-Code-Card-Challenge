@@ -303,35 +303,40 @@ function displayResults() {
 }
 
 // Control game rounds and screen switching
-function nextRound() {
+
+  function nextRound() {
+
+    if (isMonteTurn) {
+      gameState.stage++;
+
   if (gameState.stage > gameState.totalStages) {
     displayResults();
     return;
   }
-
+}
   if (isMonteTurn) {
-    
-    if (gameState.stage !== 1) { 
-      gameState.stage++;
-    }
     showScreen('monteScreen');
     positionCards(currentOrder);
     currentOrder.forEach(id => {
       const card = document.getElementById(id);
       if (card) card.classList.remove('flipped');
     });
-    updateHUD();
+
     disableGuessing();
+    updateHUD();  
+    
   } else {
     showScreen('quizScreen');
     if (!currentQuestionSet.length) {
       currentQuestionSet = shuffleQuestions(filterQuestionsByTopic(currentTopic));
     }
+
     startQuizRound();
     updateHUD();
     isMonteTurn = true;
   }
 }
+
 
 
 // Results Screen & HUD Display
