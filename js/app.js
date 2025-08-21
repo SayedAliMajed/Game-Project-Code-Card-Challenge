@@ -1,20 +1,5 @@
 
 
-/* -------------------------------------Screen Management -----------------------------*/
-
-/*function showScreen(screenId) {
-  const screens = ['introScreen', 'monteScreen','quizScreen','resultsScreen'];
-  screens.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.style.display = (id === screenId) ? 'block' : 'none';
-    }
-  });
-}
-
-// Show Intro screen on page load
-showScreen('introScreen');*/
-
 /*--------------------------------------- Constants --------------------------------------*/
 
 const cardWrappers = ['card1Wrapper', 'card2Wrapper', 'card3Wrapper'];
@@ -234,8 +219,7 @@ function showQuestion() {
   quizMessage.textContent = '';
 
   if (currentQuestionIndex >= currentQuestionSet.length) {
-    // Quiz questions finished for this stage
-    // Move to next round (Monte), do NOT increment stage here
+  
     isMonteTurn = true;
     nextRound();
     return;
