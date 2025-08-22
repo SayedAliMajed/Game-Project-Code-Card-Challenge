@@ -16,6 +16,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-size: 18px;
 
 }
 
@@ -125,6 +126,24 @@ html, body {
     transform: translateY(0);
   }
 }
+
+/* Headings on all screens */
+/*#introScreen h1,
+#introScreen h2,
+#monteScreen h1,
+#monteScreen h2,
+#quizScreen h1,
+#quizScreen h2,
+#resultsScreen h1,
+#resultsScreen h2,
+.header-text h1 {
+  font-size: 1.75rem; /* or ~28px consistent 
+  font-weight: 700;   
+  color: #113A5D;     
+  text-shadow: none !important; 
+  user-select: none;
+}*/
+
 
 #playNow,#shuffleBtn, #nextBtn, #restartBtn {
 background-image: linear-gradient(to right, #4CB8C4 0%, #3CD3AD  51%, #4CB8C4  100%)}

@@ -25,6 +25,8 @@ let winningCard = null;
 let currentTopic = null;
 let currentQuestionSet = [];
 let currentQuestionIndex = 0;
+let askedQuestionIndices = [];
+
 
 // Track Monte and Quiz points per stage
 let gameProgress = Array(gameState.totalStages).fill(null).map(() => ({ monte: 0, quiz: 0 }));
