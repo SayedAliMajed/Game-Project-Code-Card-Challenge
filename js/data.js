@@ -1,4 +1,4 @@
-window.quizBank= [
+window.quizBank = [
  
   // JavaScript Questions
   {
@@ -18,7 +18,7 @@ window.quizBank= [
       { text: 'Array', correct: true },
       { text: 'String', correct: false },
     ]
-  },
+  }, // ← ADDED THIS COMMA!
   {
     topic: 'JS',
     question: 'Which method would you use to randomly shuffle cards in a JavaScript array?',

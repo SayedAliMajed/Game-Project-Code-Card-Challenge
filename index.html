@@ -1,114 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="./css/style.css" />
-  <link rel="icon" href="/images/favicon.png" type="image/png">
-
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
-  <script src="./js/data.js"></script>
-  <script src="./js/app.js" defer></script>
-  <title>Code Cards Challenge</title>
+  <title>Code Cards Challenge Game</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/data.js"></script>
+  <script src="js/app.js" defer></script>
 </head>
-
 <body>
-<header id="mainHeader">
-  <img id="logo" src="images/FinalLogo.png" alt="Code Card Challenge Logo">
-  <div class="header-text">
-    <h1>Code Card Challenge Game</h1>
-    <div id="hud">
-      <span>Stage: <span id="stageDisplay">1</span></span>
-      <span>Points: <span id="scoreDisplay">0</span></span>
-    </div>
-  </div>
- </header>
-
-
-<div id="wrapper">
-
-<!-- Intro Screen -->
-<div id="introScreen">
-  <div class="intro-row">
-    <div class="intro-left">
-      <h2>Choose your quiz topic</h2>
-      <div id="topicSelector">
-        <label><input type="radio" name="quizTopic" value="JS"> JavaScript</label>
-        <label><input type="radio" name="quizTopic" value="CSS"> CSS</label>
-        <label><input type="radio" name="quizTopic" value="HTML"> HTML</label>
+  <header id="mainHeader">
+    <img id="logo" src="images/FinalLogo.png" alt="Code Card Challenge Logo">
+    <div class="header-text">
+      <h1>Code Card Challenge Game</h1>
+      <div id="hud">
+        <span>Stage: <span id="stageDisplay">1</span></span>
+        <span>Points: <span id="scoreDisplay">0</span></span>
       </div>
     </div>
-  <div class="intro-right" id="gameInstructions">
-   <h3>How to Play: Quiz & Three-Card Monte Challenge</h3> 
-   <ol>
-        <li>Pick your quiz topic above (JavaScript, CSS, or HTML).</li>
-        <li>Each stage starts with a <strong>Three-Card Monte</strong> game — find the Queen of Hearts.</li>
-        <li>Correct guess in Monte = <strong>+2 points.</strong></li>
-        <li>After Monte, you’ll answer a quiz question from your chosen topic.</li>
-        <li>Correct quiz answer = <strong>+2 points.</strong></li>
-        <li>There are 5 stages — score 12 or more points to win the game.</li>
-      </ol>
-   </div>
-  </div>
-  <div class="intro-actions">
-    <button id="playNow" type="button" disabled>Play Now</button>
-  </div>
-</div>
+  </header>
 
-<!-- Monte Game Screen -->
-<div id="monteScreen" style="display: none; padding: 20px; text-align: center;">
-  <h3>Watch the Queen of Hearts</h3>
-  <div id ="gameMessage" class="game-message"></div>
-  <div id="cardTable">
-    <div class="wholeCard" id="card1Wrapper">
-      <img class="cardFront" src="images/jackClubs.png" alt="Jack Clubs" />
-      <img class="cardBack" src="images/cardBack.png" alt="Card Back" />
+  <div id="wrapper">
+    <!-- Intro Screen -->
+    <div id="introScreen">
+      <div class="intro-row">
+        <div class="intro-left">
+          <h2>Choose your quiz topic</h2>
+          <div id="topicSelector">
+            <label><input type="radio" name="quizTopic" value="JS"> JavaScript</label>
+            <label><input type="radio" name="quizTopic" value="CSS"> CSS</label>
+            <label><input type="radio" name="quizTopic" value="HTML"> HTML</label>
+          </div>
+        </div>
+        <div class="intro-right" id="gameInstructions">
+          <h3>How to Play: Quiz & Three-Card Monte Challenge</h3>
+          <ol>
+            <li>Pick your quiz topic above (JavaScript, CSS, or HTML).</li>
+            <li>Each stage starts with a <strong>Three-Card Monte</strong> game — find the Queen of Hearts.</li>
+            <li>Correct guess in Monte = <strong>+2 points.</strong></li>
+            <li>After Monte, you’ll answer a quiz question from your chosen topic.</li>
+            <li>Correct quiz answer = <strong>+2 points.</strong></li>
+            <li>There are 5 stages — score 12 or more points to win the game.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="intro-actions">
+        <button id="playNow" type="button" disabled>Play Now</button>
+      </div>
     </div>
-    <div class="wholeCard" id="card2Wrapper">
-      <img class="cardFront" src="images/queenHearts.png" alt="Queen Hearts" />
-      <img class="cardBack" src="images/cardBack.png" alt="Card Back" />
+
+    <!-- Monte Screen -->
+    <div id="monteScreen">
+      <h3>Watch the Queen of Hearts</h3>
+      <div id="gameMessage" class="game-message"></div>
+      <div id="cardTable">
+        <div class="wholeCard" id="card1Wrapper">
+          <img class="cardFront" src="images/jackClubs.png" alt="Jack of Clubs">
+          <img class="cardBack flipped" src="images/cardBack.png" alt="Card Back">
+        </div>
+        <div class="wholeCard" id="card2Wrapper">
+          <img class="cardFront" src="images/queenHearts.png" alt="Queen of Hearts">
+          <img class="cardBack flipped" src="images/cardBack.png" alt="Card Back">
+        </div>
+        <div class="wholeCard" id="card3Wrapper">
+          <img class="cardFront" src="images/jackSpades.png" alt="Jack of Spades">
+          <img class="cardBack flipped" src="images/cardBack.png" alt="Card Back">
+        </div>
+      </div>
+      <button id="shuffleBtn">Shuffle</button>
     </div>
-    <div class="wholeCard" id="card3Wrapper">
-      <img class="cardFront" src="images/jackSpades.png" alt="Jack Spades" />
-      <img class="cardBack" src="images/cardBack.png" alt="Card Back" />
+
+    <!-- Quiz Screen -->
+    <div id="quizScreen">
+      <h1>Quiz Game</h1>
+      <div id="quizMessage" class="game-message"></div>
+      <h2 id="question"></h2>
+      <div id="answer-buttons"></div>
+      <button id="nextBtn">Next</button>
+    </div>
+
+    <!-- Results Screen -->
+    <div id="resultsScreen" class="results-container">
+      <h1>Final Game Results</h1>
+      <p>Your Score: <span id="final-score">0</span> / <span id="total-questions">0</span></p>
+      <p id="feedback-text"></p>
+      <div id="resultsTableContainer"></div>
+      <button id="restartBtn">Play Again</button>
     </div>
   </div>
-  <button id="shuffleBtn">Shuffle</button>
-</div>
-
-
-
-<!-- Quiz Screen-->
-<div id="quizScreen" style="display:none;">
-   <h1> Quiz Game</h1>
-   <div id ="guizMessage" class="guiz-message"></div>
-   <div class="quiz">
-    <h2 id="question"> question goes here </h2>
-    <div id="answer-buttons">
-      <button class="btn"> Answer 1</button>
-      <button class="btn"> Answer 2</button>
-      <button class="btn"> Answer 3</button>
-    </div>
-    <button id="nextBtn"> Next</button>
-   </div>
-   
-</div>
-
-<!-- Result Screen -->
-<div class="results-container" id="resultsScreen" style="display:none;">
-  <h1>Final Game Results</h1>
-  
-  <div class="score-display" id="finalScoreDisplay">
-    <p>Your Score: <span id="final-score">0</span> / <span id="total-questions">0</span></p>
-  </div>
-  
-  <div class="feedback-message">
-     <p id="feedback-text">Well done!</p>
-  </div>
-  
-  <div id="resultsTableContainer"></div>
-  
-  <button id="restartBtn">Play Again</button>
-</div>
-
-</div>
 </body>
 </html>
