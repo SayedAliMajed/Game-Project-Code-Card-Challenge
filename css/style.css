@@ -87,7 +87,7 @@ html, body {
   margin: 0 8px;
 }
 
-/* Wrapper background and layout - LIGHT BACKGROUND */
+/* Wrapper  */
 #wrapper {
   max-width: 900px;
   width: 100%;
@@ -103,7 +103,7 @@ html, body {
   border: 1px solid rgba(226, 232, 240, 0.8);
 }
 
-/* Common screen styles - FIXED TO STAY INSIDE WRAPPER */
+
 #introScreen,
 #monteScreen,
 #quizScreen,
@@ -265,7 +265,7 @@ html, body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Monte Game Screen - PRESERVE ALL CARD FUNCTIONALITY */
+/* Monte Game Screen*/
 #monteScreen h3 {
   font-family: 'Playfair Display', Georgia, serif;
   font-size: 1.75rem;

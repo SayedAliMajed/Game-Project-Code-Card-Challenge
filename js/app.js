@@ -1,12 +1,3 @@
-console.log("JavaScript file loaded with fixes - Version 3");
-console.log("quizBank available:", typeof quizBank !== 'undefined');
-if (typeof quizBank !== 'undefined') {
-  console.log("quizBank contents:", quizBank);
-  console.log("Total questions:", quizBank.length);
-} else {
-  console.error("quizBank is not loaded! Check data.js");
-}
-
 
 /*--------------------------------------- Constants --------------------------------------*/
 const cardWrappers = ['card1Wrapper','card2Wrapper','card3Wrapper'];
@@ -148,7 +139,6 @@ function startMonteRound() {
   
   disableGuessing();
   
-  // Show card fronts
   currentOrder.forEach(id => {
     const card = document.getElementById(id);
     if(card) {
@@ -162,7 +152,6 @@ function startMonteRound() {
   
   setTimeout(() => {
     if(monteMessage) monteMessage.textContent = 'Shuffling cards...';
-    // Show card backs
     currentOrder.forEach(id => {
       const card = document.getElementById(id);
       if(card) {
@@ -185,7 +174,6 @@ function filterQuestionsByTopic(topic) {
 }
 
 function onTopicSelected(topic) {
-  console.log("Topic selected:", topic);
   currentTopic = topic;
   currentQuestionSet = shuffle(filterQuestionsByTopic(topic));
   currentQuestionIndex = 0;
@@ -270,7 +258,7 @@ function selectAnswer(correct) {
 
 /*------------------------------- Game Controller --------------------------------------*/
 function nextRound() {
-  console.log("nextRound called - isMonteTurn:", isMonteTurn, "Stage:", gameState.stage);
+ 
   
   if(isMonteTurn) {
     gameState.stage++;
@@ -347,22 +335,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const playNowBtn = document.getElementById('playNow');
   const restartBtn = document.getElementById('restartBtn');
   
-  // SIMPLE FIX: Just enable the button immediately
+
   if(playNowBtn) {
-    playNowBtn.disabled = false; // Enable the button right away
+    playNowBtn.disabled = false; 
   }
   
-  // Topic selection (keep your original logic)
+
   topicRadios.forEach(radio => {
     radio.addEventListener('change', () => {
       onTopicSelected(radio.value);
     });
   });
 
-  // Play Now button (keep your original logic)
+  
   playNowBtn.addEventListener('click', () => {
     if(!currentTopic) {
-      // Set default topic if none selected
       currentTopic = "JS";
       currentQuestionSet = shuffle(filterQuestionsByTopic(currentTopic));
       currentQuestionIndex = 0;
@@ -379,7 +366,7 @@ document.addEventListener('DOMContentLoaded', () => {
     startMonteRound();
   });
 
-  // Keep your restart button as is
+ 
   restartBtn.addEventListener('click', () => {
     gameState.stage = 1;
     gameState.score = 0;
@@ -388,7 +375,7 @@ document.addEventListener('DOMContentLoaded', () => {
     currentQuestionSet = [];
     currentQuestionIndex = 0;
     isMonteTurn = true;
-    playNowBtn.disabled = false; // Keep enabled after restart
+    playNowBtn.disabled = false; 
     monteMessage.textContent = '';
     quizMessage.textContent = '';
     showScreen('introScreen');
@@ -399,5 +386,5 @@ document.addEventListener('DOMContentLoaded', () => {
   updateHUD();
   positionCards(currentOrder);
   disableGuessing();
-  // Remove this line: playNowBtn.disabled = true;
+  
 });
