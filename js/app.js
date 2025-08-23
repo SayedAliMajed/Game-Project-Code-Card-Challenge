@@ -1,4 +1,4 @@
-console.log("JavaScript file loaded - Code Card Challenge Game");
+
 
 /*-------------- Constants -------------*/
 const cardWrappers = ['card1Wrapper', 'card2Wrapper', 'card3Wrapper'];
@@ -95,7 +95,7 @@ function disableGuessing() {
 }
 
 function checkGuess(id) {
-  console.log("Card guessed:", id, "Winning card:", winningCard);
+ 
   
   if(id === winningCard) {
     gameProgress[gameState.stage - 1].monte += 2;
@@ -170,7 +170,7 @@ function filterQuestionsByTopic(topic) {
 }
 
 function onTopicSelected(topic) {
-  console.log("Topic selected:", topic);
+  
   currentTopic = topic;
   currentQuestionSet = shuffle(filterQuestionsByTopic(topic));
   currentQuestionIndex = 0;
@@ -214,7 +214,7 @@ function showQuestion() {
 }
 
 function selectAnswer(correct) {
-  console.log("Answer selected:", correct);
+ 
   
   if(correct) {
     gameProgress[gameState.stage - 1].quiz += 2;
@@ -350,18 +350,12 @@ function displayResults() {
 
 /*----------- Event Listeners ----------*/
 document.addEventListener('DOMContentLoaded', () => {
-  console.log("DOM loaded, setting up event listeners");
+  
   
   // Cache all DOM elements
   cacheElements();
   
-  console.log("Found elements:", {
-    radios: topicRadios ? topicRadios.length : 0,
-    playBtn: !!playNowBtn,
-    submitBtn: !!submitBtn,
-    restartBtn: !!restartBtn
-  });
-  
+
   // Topic selection listeners
   if(topicRadios && topicRadios.length > 0) {
     topicRadios.forEach(radio => {
@@ -397,8 +391,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Submit button (if you have one)
   if(submitBtn) {
     submitBtn.addEventListener('click', () => {
-      console.log("Submit button clicked!");
-      // Add your submit logic here
+      
     });
   }
 
