@@ -47,6 +47,7 @@ This project was inspired by and references techniques from the following source
 
 ### Additional Resources
 - **CSS Design Techniques:** Referenced from [CSS-Tricks](https://css-tricks.com) for modern styling approaches and animations
+- **Gradient Generator:** [CSS Gradient](https://cssgradient.io/) - Free gradient generator tool used to create the beautiful ocean blue gradient backgrounds and color schemes throughout the game interface
 - **Typography:** Google Fonts (Inter & Playfair Display) for professional font combinations
 - **Color Palette:** Custom ocean blue gradient theme designed specifically for Code Card Challenge
 - **Card Graphics:** Custom game assets created for the Code Card Challenge theme
@@ -164,11 +165,31 @@ Contributions are welcome! Feel free to:
 - Fix bugs or improve performance
 - Update documentation
 
+***
+
+## 📜 License
+
+This project is open source and available under the [MIT License](LICENSE).
 
 ***
 
 ## 📎 Project Links
 
 - **GitHub Repository:** [https://github.com/SayedAliMajed/Game-Project-Code-Card-Challenge](https://github.com/SayedAliMajed/Game-Project-Code-Card-Challenge)
-- **Live Demo:** *[https://sayedalimajed.github.io/Game-Project-Code-Card-Challenge/]*
+- **Live Demo:** *[Add your deployed URL here]*
 - **Developer:** [SayedAliMajed](https://github.com/SayedAliMajed)
+
+***
+
+*Built with ❤️ for the coding community. Happy learning and gaming!* 🎮📚
+
+[1](https://cssgradient.io)
+[2](https://cssgradient.io)
+[3](https://cssgradient.io/gradient-backgrounds/)
+[4](https://cssgradient.io/privacy-policy/)
+[5](https://cssgradient.io/blog/resources/)
+[6](https://blog.productdisrupt.com/side-projects-css-gradient-6de3324eef06)
+[7](https://developer.mozilla.org/en-US/docs/Web/CSS/gradient)
+[8](https://wpstackable.com/blog/great-gradient-palette-ideas-for-your-website/)
+[9](https://cssgradient.io/blog/repeating-linear-gradient-css/)
+[10](https://javascript.plainenglish.io/8-css-secrets-that-will-make-your-site-look-premium-7c19aa06be80)
